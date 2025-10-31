@@ -1,0 +1,120 @@
+:host {
+  --min-h-120: 30rem;
+  --min-h-100-sm: 25rem;
+  --logo-size: 7.5rem;
+  --gap-1: 0.25rem;
+  --pad-15: 3.75rem;
+
+  --color-white: #fff;
+  --text-2xl: 1.5rem;
+  --text-sm: 0.875rem;
+  --font-weight-bold: 700;
+}
+
+/* 배너 레이아웃 */
+.banner {
+  inline-size: 100%;
+}
+
+.banner_stage {
+  position: relative;
+  inline-size: 100%;
+  overflow: hidden;
+
+  /* 높이 */
+  min-block-size: var(--min-h-120);
+}
+/* sm 이상에서 높이 조정 */
+@media (min-width: 640px) {
+  .banner_stage {
+    min-block-size: var(--min-h-100-sm);
+  }
+}
+
+/* 배경 이미지 */
+.banner_bg {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* 컨텐츠 박스: 색/패딩/텍스트 컬러 */
+.banner_content {
+  position: absolute;
+  top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+
+  color: var(--color-white);
+  padding: var(--pad-15);
+}
+
+/* 로고 사이즈 */
+.banner_logo {
+  inline-size: var(--logo-size);
+  block-size: var(--logo-size);
+}
+
+/* 텍스트 묶음 간격 */
+.banner_text {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap-1);
+}
+
+/* 제목 */
+.banner_title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+/* 설명 */
+.banner_description {
+  font-size: var(--text-sm);
+}
+
+/* 배너 슬라이드 */
+#portfolio {
+  .swiper-pagination {
+    margin-top: 40px;
+  }
+
+  swiper-slide {
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+    opacity: 0.3;
+    transform: scale(0.8);
+
+    &.swiper-slide-next,
+    &.swiper-slide-prev {
+      opacity: 0.7;
+      transform: scale(0.85);
+    }
+
+    &.swiper-slide-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+/* slide 안 진행률 바 */
+.my-progress {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10rem;
+  height: 0.25rem;
+  border: none;
+}
+
+.my-progress::-webkit-progress-bar {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+}
+.my-progress::-webkit-progress-value {
+  background-color: #fff;
+  border-radius: 9999px;
+}

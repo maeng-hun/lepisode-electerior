@@ -1,0 +1,27 @@
+<section class="mx-auto flex w-full flex-col items-center justify-center gap-10 lg:gap-[100px]">
+  <div class="container mx-auto flex w-full items-center justify-center !px-0 lg:justify-start lg:gap-4">
+    @for (tab of tabs; track tab.key) {
+      <button
+        class="tab flex-1 cursor-pointer border-b-2 border-transparent py-2 text-xl font-semibold tracking-[-0.8px] text-gray-400 transition duration-300 ease-in-out hover:border-gray-300 hover:text-gray-800 focus:outline-none data-[active=true]:border-black data-[active=true]:text-black lg:flex-none lg:px-6 lg:py-2"
+        [attr.data-active]="activeTab() === tab.key"
+        (click)="setActiveTab(tab.key)"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+
+  <div class="w-full">
+    @switch (activeTab()) {
+      @case ('company') {
+        <app-company-component />
+      }
+      @case ('service') {
+        <app-service-component />
+      }
+      @case ('inquiry') {
+        <app-inquiry-component />
+      }
+    }
+  </div>
+</section>

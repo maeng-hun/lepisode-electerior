@@ -1,0 +1,36 @@
+/* portfolio 슬라이드 */
+#portfolio {
+  .swiper-pagination {
+    margin-top: 40px;
+  }
+  .fade-left {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 5rem;
+    z-index: 20;
+    background: linear-gradient(to right, rgb(255, 255, 255), transparent);
+  }
+
+  .fade-right {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 5rem;
+    z-index: 20;
+    background: linear-gradient(to left, rgb(255, 255, 255), transparent);
+  }
+
+  swiper-slide.swiper-slide-active,
+  swiper-slide.swiper-slide-next,
+  swiper-slide.swiper-slide-prev {
+    transform: none;
+    opacity: 1;
+  }
+}

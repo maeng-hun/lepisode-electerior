@@ -1,0 +1,99 @@
+<form [formGroup]="jobForm" class="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-lg">
+  <div class="flex justify-between">
+    <h2 class="text-6 font-bold text-gray-700">채용 공고 등록</h2>
+    <button (click)="closeClear(false)" type="button" aria-label="닫기" class="rounded-lg p-2 hover:bg-gray-100">
+      ✕
+    </button>
+  </div>
+  <div class="flex flex-col gap-2 text-sm">
+    <!-- 1줄: 레이블 -->
+    <span class="text-4 font-medium">고정<span class="font-extrabold text-blue-600">*</span></span>
+    <!-- 2줄: 슬라이더 + 상태 텍스트 -->
+    <div class="flex items-center gap-3">
+      <!-- 실제 체크박스 숨기기 -->
+      <label class="inline-flex cursor-pointer items-center gap-3 text-sm text-gray-700">
+        <div class="relative">
+          <input type="checkbox" formControlName="isPinned" class="peer sr-only" />
+          <!-- 슬라이더 트랙 -->
+          <div
+            class="h-6 w-11 rounded-full bg-gray-200 transition-colors duration-300 ease-in-out peer-checked:bg-blue-600"
+          ></div>
+          <!-- 슬라이더 버튼 -->
+          <div
+            class="absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow-md transition-transform duration-300 ease-in-out peer-checked:translate-x-full"
+          ></div>
+        </div>
+      </label>
+      <!-- 체크 상태 텍스트 -->
+      <span class="font-medium text-gray-400">
+        {{ jobForm.controls.isPinned.value ? '고정' : '숨김' }}
+      </span>
+    </div>
+  </div>
+  <div class="flex flex-col gap-2 text-sm">
+    <span class="text-4 font-medium">제목 <span class="font-extrabold text-blue-600">*</span></span>
+    <input
+      formControlName="title"
+      type="text"
+      placeholder="제목을 입력해주세요."
+      maxlength="50"
+      required
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
+    />
+    @if (getErrors(jobForm.controls.title, '제목')) {
+      <div class="text-xs text-red-500 transition ease-in-out focus:border-red-500">
+        {{ getErrors(jobForm.controls.title, '제목') }}
+      </div>
+    }
+  </div>
+  <div class="flex flex-col gap-2 text-sm">
+    <span class="text-4 font-medium">내용 <span class="font-extrabold text-blue-600">*</span> </span>
+
+    <!-- 텍스트 에디터 -->
+    <div class="flex flex-wrap gap-1 rounded-t-md border border-b-0 border-gray-300 bg-gray-50 p-2">
+      <app-editor />
+    </div>
+    <textarea
+      formControlName="content"
+      maxlength="500"
+      rows="10"
+      placeholder="내용을 입력해주세요"
+      class="w-full rounded-b-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
+    >
+    </textarea>
+    {{ jobForm.controls.content.value?.length || 0 }}/500
+    @if (getErrors(jobForm.controls.content, '내용')) {
+      <div class="text-xs text-red-500 transition ease-in-out">
+        {{ getErrors(jobForm.controls.content, '내용') }}
+      </div>
+    }
+  </div>
+  <!-- 첨부파일 -->
+  <div class="flex flex-col gap-2 text-sm">
+    <span class="text-4 font-medium">첨부파일<span class="font-extrabold text-blue-600">*</span></span>
+    <app-multifile-upload
+      class="text-4 font-medium"
+      (filesChange)="selectedFiles = $event"
+      [recommendedSize]="'최대 5장, 이미지 파일만 업로드 가능합니다.'"
+      [multiple]="true"
+      [limit]="5"
+      [category]="'ETC'"
+      [accept]="'image/*'"
+    />
+    <!-- <app-file-upload class="text-4 font-medium" /> -->
+  </div>
+  <div class="flex justify-center gap-2">
+    <button
+      (click)="submit()"
+      class="cursor-pointer rounded-md bg-blue-500 px-3 py-2 font-medium text-white shadow-md transition-transform duration-150 hover:bg-blue-600 active:scale-95 active:bg-blue-700"
+    >
+      등록하기
+    </button>
+    <button
+      (click)="closeWithDraft(false)"
+      class="cursor-pointer rounded-md bg-gray-400 px-3 py-2 font-medium text-white shadow-md transition-transform duration-150 hover:bg-gray-500 active:scale-95 active:bg-gray-600"
+    >
+      임시저장
+    </button>
+  </div>
+</form>

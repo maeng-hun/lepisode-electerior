@@ -1,0 +1,84 @@
+<div class="flex flex-col gap-5 md:p-6">
+  <!-- 검색 + 등록 버튼 영역 -->
+  <section class="flex flex-col gap-3 md:flex-row md:justify-between md:gap-0">
+    <app-search-form
+      [(keyword)]="searchKeyword"
+      (searchItems)="onSearch($event)"
+      placeholder="제품 유형, 키워드로 검색해주세요"
+      class="w-full cursor-pointer md:w-auto"
+    />
+
+    <button
+      type="button"
+      class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-blue-500 px-4 py-2 text-white shadow-md transition duration-300 hover:bg-blue-700 md:w-auto md:justify-start"
+      (click)="openForm()"
+    >
+      <img
+        src="https://api.iconify.design/lucide/plus.svg?color=white"
+        class="hidden md:flex"
+        alt="등록 아이콘"
+        width="24"
+        height="24"
+      />
+      등록
+    </button>
+  </section>
+
+  <!-- 데스크탑용 테이블 -->
+  <section class="hidden flex-col md:flex">
+    <!-- 테이블 헤더 -->
+    <ul
+      class="grid grid-cols-[1fr_1fr_2fr_2fr_2fr_2fr_2fr_2fr_0.5fr] gap-1 border-b-2 border-gray-200 px-4 py-2 font-semibold text-gray-700"
+    >
+      @for (category of categories; track category) {
+        <li>{{ category }}</li>
+      }
+    </ul>
+
+    <!-- 테이블 내용 (Drag&Drop 적용) -->
+    @if (pagedProducts().length === 0) {
+      <p class="p-4 text-center text-gray-500">등록된 제품이 없습니다.</p>
+    } @else {
+      <ul class="text-sm text-gray-800" cdkDropList (cdkDropListDropped)="drop($event)">
+        @for (item of pagedProducts(); track $index) {
+          <app-product-item
+            [item]="item"
+            [index]="filteredProducts().length - ($index + (currentPage() - 1) * itemsPerPage())"
+            (deleted)="onProductDeleted($event)"
+            (edited)="loadProducts()"
+          />
+        }
+      </ul>
+    }
+  </section>
+
+  <!-- 모바일용 리스트 -->
+  <ul class="flex flex-col gap-4 text-sm text-gray-800 md:hidden">
+    @if (pagedProducts().length === 0) {
+      <p class="p-4 text-center text-gray-500">등록된 제품이 없습니다.</p>
+    } @else {
+      @for (item of pagedProducts(); track $index) {
+        <app-product-item
+          [item]="item"
+          [index]="filteredProducts().length - ($index + (currentPage() - 1) * itemsPerPage())"
+          (deleted)="onProductDeleted($event)"
+          (edited)="loadProducts()"
+        />
+      }
+    }
+  </ul>
+
+  <!-- 페이지네이션 -->
+  <section class="flex items-center justify-between">
+    <p class="font-extrabold">
+      전체<span class="text-blue-500"> {{ filteredProducts().length }}</span>
+    </p>
+    <app-pagination
+      [currentPage]="currentPage()"
+      [totalPages]="totalPages()"
+      [itemsPerPage]="itemsPerPage()"
+      (pageChange)="currentPage.set($event)"
+      (itemsPerPageChange)="onItemsPerPageChange($event)"
+    />
+  </section>
+</div>

@@ -1,0 +1,18 @@
+<article class="flex flex-col">
+  <section class="flex flex-col space-y-10 lg:space-y-20">
+    <div class="flex flex-col items-center gap-4 px-4">
+      <p class="text-primary-500 lg:text-7 text-xl font-black tracking-[-0.8px]">Service</p>
+      <h2 class="text-7 text-center font-extrabold tracking-[-1.12px] text-gray-800 lg:text-5xl">
+        일렉테리어가 바꾸는 <br class="lg:hidden" />공간의 가치
+      </h2>
+      <p class="text-center text-lg font-semibold tracking-[-0.72px] text-gray-500 lg:text-2xl">
+        모두를 위한, 쉽고 똑똑한<br class="lg:hidden" />인테리어를 만들고자 합니다
+      </p>
+    </div>
+  </section>
+  <section class="flex flex-col">
+    @for (item of serviceItems; track item.step; let i = $index) {
+      <app-service-item [item]="item" [index]="i" class="even:bg-[#E9EBF2]" />
+    }
+  </section>
+</article>

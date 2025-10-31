@@ -1,0 +1,33 @@
+model File {
+  id         String   @id @default(cuid(2))
+  bucket     String?   // supabase 버킷 이름 (예: "products")
+  path       String?   @unique // supabase 저장 경로 ("products/uuid.jpg")
+  url        String   @unique // public url or signed url
+  name       String   // 원본 파일명
+  size       Int
+  mimeType   String?
+  createdAt DateTime @default(now())
+
+  JobOpening   JobOpening? @relation(references: [id], fields: [JobOpeningId])
+  JobOpeningId String?
+  Portfolio    Portfolio?  @relation(references: [id], fields: [PortfolioId], onDelete: Cascade)
+  PortfolioId  String?
+  Admin        Admin?
+
+  businessInfo BusinessInfo?
+  product Product?
+  partner Partner?
+  
+  inquiryId  String?
+  inquiry    Inquiry? @relation(fields: [inquiryId], references: [id])
+
+  noticeId  String?
+  notice    Notice? @relation(fields: [noticeId], references: [id])
+
+  feedId  String?
+  feed    Feed? @relation(fields: [feedId], references: [id])
+
+  place Place?
+
+  userProfile User? @relation("UserProfileImage")
+} 

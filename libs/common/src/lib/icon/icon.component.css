@@ -1,0 +1,24 @@
+:host[data-size='xs'] {
+  width: 0.875rem; /* 14px */
+  height: 0.875rem; /* 14px */
+}
+
+:host[data-size='sm'] {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+}
+
+:host[data-size='md'] {
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* 24px */
+}
+
+:host[data-size='lg'] {
+  width: 2rem; /* 32px */
+  height: 2rem; /* 32px */
+}
+
+:host[data-size='xl'] {
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+}

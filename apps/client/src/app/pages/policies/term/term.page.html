@@ -1,0 +1,29 @@
+<!-- 약관 -->
+<main class="flex flex-col items-stretch justify-end gap-6 bg-white px-4 py-8 lg:gap-8 lg:px-70 lg:py-20">
+  <div class="flex items-center gap-2.5 border-b border-gray-800 pb-4">
+    <h1 class="text-6 font-pretendard text-center font-medium text-gray-800">이용약관</h1>
+  </div>
+  <div id="no-1" class="flex flex-col gap-3">
+    <h1 class="font-semibold text-gray-800">제 1장 [총칙]</h1>
+    <h2 class="font-semibold text-gray-800">제1조(목적)</h2>
+    <p class="track text-[14px] font-medium text-gray-600">
+      본 이용약관은 “사이트명”(이하 "사이트")의 서비스의 이용조건과 운영에 관한 제반 사항 규정을 목적으로 합니다.
+    </p>
+  </div>
+  <!-- 2조~4조 -->
+  @for (s of sections; track $index) {
+    <section [id]="s.id" class="flex flex-col items-start gap-3">
+      <h1 class="font-semibold text-gray-800">{{ s.title }}</h1>
+      <div class="flex flex-col gap-1">
+        <h2 class="text-[14px] font-medium text-gray-600">{{ s.subTitle }}</h2>
+        <div class="flex justify-center gap-2.5 pl-3">
+          <ol class="text-[14px] leading-5 font-medium text-gray-600">
+            @for (list of s.list; track $index) {
+              <li>{{ list }}</li>
+            }
+          </ol>
+        </div>
+      </div>
+    </section>
+  }
+</main>

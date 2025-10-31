@@ -1,0 +1,34 @@
+<div
+  class="grid grid-cols-5 items-center justify-center border-b border-gray-200 px-2 py-4 transition-all hover:bg-gray-200"
+>
+  <div class="text-center">{{ rowNumber() }}</div>
+  <div class="flex justify-center">
+    <!-- @if (imgUrl(partner); as src) {
+            <img [src]="src" alt="로고" class="h-10 w-auto" />
+          } @else {
+            <span class="text-gray-400">—</span>
+          } -->
+  </div>
+  <div
+    (click)="openContextMenu($event)"
+    class="mx-auto line-clamp-1 max-w-30 cursor-pointer truncate overflow-hidden text-gray-900 hover:underline"
+  >
+    {{ item().name }}
+  </div>
+
+  <div class="text-center break-all">
+    @if (item().link) {
+      <a (click)="open(item().link)" class="cursor-pointer text-blue-600 hover:underline">
+        {{ item().link }}
+      </a>
+    } @else {
+      <span class="text-gray-400">—</span>
+    }
+  </div>
+  <!-- 액션 -->
+  <div class="flex w-full justify-center">
+    <button type="button" class="rounded p-1 hover:bg-gray-100">
+      <img src="/assets/vector.svg" class="size-5" />
+    </button>
+  </div>
+</div>

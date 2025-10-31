@@ -1,0 +1,47 @@
+<div class="flex w-full flex-col gap-5">
+  <div class="flex items-center justify-between">
+    <!-- search bar -->
+    <app-search-form placeholder="이름으로 검색하세요." (searchItems)="onSearch($event)" />
+    <button
+      type="button"
+      (click)="openForm()"
+      class="flex cursor-pointer items-center gap-2 rounded-md bg-blue-600 px-7 py-3 font-semibold text-white transition-all hover:bg-blue-900"
+    >
+      <img src="assets/IcRoundPlus.svg" alt="등록 버튼 로고" class="size-5" />
+      등록
+    </button>
+  </div>
+
+  <!-- 협력사 목록 -->
+  <div class="overflow-hidden rounded-lg border border-gray-300">
+    <div class="grid grid-cols-5 border-b border-gray-200 bg-gray-100 p-3 py-5 text-center font-semibold text-gray-700">
+      <div>순번</div>
+      <div>로고</div>
+      <div>이름</div>
+      <div>링크</div>
+    </div>
+    <div class="flex flex-col">
+      @for (partner of partners(); track partner.id; let i = $index) {
+        <div class="odd:bg-gray-50 even:bg-gray-100">
+          <app-partner-item [item]="partner" [rowNumber]="totalCount() - (currentPage() - 1) * itemsPerPage() - i" />
+        </div>
+      }
+
+      @if (partners().length === 0) {
+        <div class="py-6 text-center text-gray-500">등록된 협력사가 없습니다.</div>
+      }
+    </div>
+  </div>
+
+  <!-- 페이지네이션 -->
+  <div class="flex items-center justify-between pt-4">
+    <app-pagination
+      [currentPage]="currentPage()"
+      [totalPages]="pages()"
+      [itemsPerPage]="itemsPerPage()"
+      (pageChange)="onPageChange($event)"
+      (itemsPerPageChange)="onItemsPerPageChange($event)"
+    />
+    <div class="text-sm text-gray-600">총 {{ totalCount() }}건</div>
+  </div>
+</div>

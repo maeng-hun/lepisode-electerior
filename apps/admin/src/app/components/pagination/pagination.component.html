@@ -1,0 +1,82 @@
+<div class="flex items-center gap-3 md:gap-4">
+  <!-- 이전 그룹 -->
+  <div>
+    <button
+      type="button"
+      class="cursor-pointer rounded-lg p-1 text-xs transition duration-300 hover:bg-gray-100 disabled:cursor-not-allowed md:px-3 md:py-2 md:text-base"
+      (click)="prevGroup()"
+      [disabled]="!hasPrevGroup()"
+    >
+      &lt;&lt;
+    </button>
+
+    <!-- 이전 페이지 -->
+    <button
+      type="button"
+      class="cursor-pointer rounded-lg p-1 text-xs transition duration-300 hover:bg-gray-100 disabled:cursor-not-allowed md:px-3 md:py-2 md:text-base"
+      (click)="prevPage()"
+      [disabled]="(currentPage() ?? 1) === 1"
+    >
+      &lt;
+    </button>
+  </div>
+
+  <!-- 페이지 버튼 -->
+  <div class="flex items-center gap-2">
+    @for (page of currentPageGroup(); track page; let i = $index) {
+      <button
+        type="button"
+        class="cursor-pointer rounded-lg border px-3 py-1 transition duration-300 hover:bg-blue-700 md:px-4 md:py-2"
+        [ngClass]="{
+          'border-blue-500 bg-blue-500 text-white': currentPage() === groupStartIndex() + i + 1,
+          'border-gray-300 bg-white text-black hover:bg-gray-100': currentPage() !== groupStartIndex() + i + 1
+        }"
+        (click)="changePage(groupStartIndex() + i + 1)"
+      >
+        {{ groupStartIndex() + i + 1 }}
+      </button>
+    }
+  </div>
+
+  <div>
+    <button
+      type="button"
+      class="cursor-pointer rounded-lg p-1 text-xs transition duration-300 hover:bg-gray-100 disabled:cursor-not-allowed md:px-3 md:py-2 md:text-base"
+      (click)="nextPage()"
+      [disabled]="(currentPage() ?? 1) === totalPages().length"
+    >
+      &gt;
+    </button>
+
+    <!-- 다음 그룹 -->
+    <button
+      type="button"
+      class="cursor-pointer rounded-lg p-1 text-xs transition duration-300 hover:bg-gray-100 disabled:cursor-not-allowed md:px-3 md:py-2 md:text-base"
+      (click)="nextGroup()"
+      [disabled]="!hasNextGroup()"
+    >
+      &gt;&gt;
+    </button>
+  </div>
+  <!-- 다음 페이지 -->
+
+  <div class="relative w-18 md:w-28">
+    <select
+      class="w-full cursor-pointer appearance-none rounded-md border border-gray-300 px-2 py-1 pr-10 outline-none focus:border-blue-500 md:px-4 md:py-2"
+      [ngModel]="itemsPerPage()"
+      (ngModelChange)="changeItemsPerPage($event)"
+    >
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+    </select>
+
+    <img
+      alt="드롭다운 아이콘"
+      width="20"
+      height="20"
+      class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-gray-500"
+    />
+  </div>
+</div>

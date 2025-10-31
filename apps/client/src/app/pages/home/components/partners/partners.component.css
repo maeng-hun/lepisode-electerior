@@ -1,0 +1,111 @@
+/* partners 슬라이드 */
+#partners {
+  .fade-left,
+  .fade-right {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 5rem;
+    z-index: 20;
+  }
+  .fade-left {
+    left: 0;
+    background: linear-gradient(to right, rgb(229, 231, 235), transparent);
+  }
+  .fade-right {
+    right: 0;
+    background: linear-gradient(to left, rgb(229, 231, 235), transparent);
+  }
+
+  swiper-slide {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+@-webkit-keyframes scroll {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(100px * 7));
+    transform: translateX(calc(100px * 7));
+  }
+}
+
+@keyframes scroll {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(100px * 7));
+    transform: translateX(calc(100px * 7));
+  }
+}
+
+@-webkit-keyframes r-scroll {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(-100px * 7));
+    transform: translateX(calc(-100px * 7));
+  }
+}
+
+@keyframes r-scroll {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(-100px * 7));
+    transform: translateX(calc(-100px * 7));
+  }
+}
+
+/* 무한 루프 애니메이션 */
+@keyframes loop-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* 첫 번째 슬라이더 (좌→우 or 우→좌) */
+.loop--slider {
+  position: relative;
+  width: 100%; /* 100vh → 100% */
+  overflow: hidden; /* 넘치는 영역 가리기 */
+  background: var(--color-gray-200);
+}
+
+.loop--slider .loop--slide--track {
+  display: inline-flex; /* 컨텐츠 길이에 맞춤 */
+  gap: 32px;
+  will-change: transform;
+  animation: loop-scroll 25s linear infinite;
+}
+
+/* 두 번째 슬라이더 (반대 방향) */
+.r-loop--slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-gray-200);
+}
+
+.r-loop--slider .r-loop--slide--track {
+  display: inline-flex;
+  gap: 32px;
+  will-change: transform;
+  animation: loop-scroll 25s linear infinite reverse;
+}

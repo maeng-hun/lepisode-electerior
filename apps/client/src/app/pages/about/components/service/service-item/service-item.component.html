@@ -1,0 +1,28 @@
+<section
+  class="container flex flex-col gap-4 py-10 lg:flex-row lg:items-center lg:gap-8 lg:py-20"
+  [class.lg:flex-row-reverse]="isEven()"
+>
+  <!-- 왼쪽 영역 -->
+  <div class="flex flex-col space-y-8 font-extrabold text-gray-800 lg:w-1/2">
+    <!-- step + title 가로 배치 -->
+    <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:gap-6">
+      <p
+        class="flex h-12 w-12 items-center justify-center rounded-lg bg-[#E9EBF2] text-2xl tracking-[-0.96px] shadow-lg 2xl:h-20 2xl:w-20 2xl:text-5xl 2xl:tracking-[-1.28px]"
+      >
+        {{ item().step }}
+      </p>
+      <p class="text-2xl tracking-[-1.12px] 2xl:text-5xl 2xl:tracking-[-1.92px]">
+        {{ item().title }}
+      </p>
+    </div>
+
+    <!-- description -->
+    <p
+      class="text-lg font-semibold tracking-[-0.72px] text-gray-500 2xl:text-2xl"
+      [innerHTML]="getFormattedDescription(item().description)"
+    ></p>
+  </div>
+
+  <!-- 오른쪽 이미지 -->
+  <img class="lg:w-1/2" [src]="item().image" alt="서비스 이미지" />
+</section>

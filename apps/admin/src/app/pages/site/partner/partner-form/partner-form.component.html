@@ -1,0 +1,79 @@
+<div class="absolute inset-0 bg-black/40" (click)="cancel.emit()"></div>
+
+<div class="relative z-10 flex min-h-150 w-full max-w-110 flex-col rounded-2xl bg-white p-6 shadow-xl">
+  <div class="flex items-center justify-between py-2">
+    @if (mode === 'create') {
+      <h2 class="text-xl font-semibold">파트너사 등록</h2>
+    } @else {
+      <h2 class="text-xl font-semibold">파트너사 수정</h2>
+    }
+    <button type="button" class="rounded p-2 hover:bg-gray-100" (click)="cancel.emit(); dialogRef?.close(false)">
+      <img src="https://api.iconify.design/lucide:x.svg" class="size-5" alt="닫기" />
+    </button>
+  </div>
+  <form (ngSubmit)="onSubmit()" #partnerForm="ngForm" class="flex flex-col justify-between gap-5">
+    <div class="flex flex-col gap-3">
+      <app-file-upload label="로고 이미지" recommendedSize="권장: 200 x 100px / JPG·PNG" />
+      <div>
+        <div class="flex gap-1">
+          <p>이름</p>
+          <p class="text-blue-600">*</p>
+        </div>
+        <input
+          name="name"
+          [(ngModel)]="formData.name"
+          required
+          class="w-full rounded-md border-2 border-gray-300 p-2 placeholder-gray-600 focus:border-blue-500 focus:outline-none"
+          placeholder="이름을 입력해주세요."
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <p>링크</p>
+        <input
+          name="link"
+          [(ngModel)]="formData.link"
+          class="w-full rounded-md border-2 border-gray-300 p-2 placeholder-gray-600 focus:border-blue-500 focus:outline-none"
+          placeholder="https://로 시작하는 URL을 기재해주세요."
+        />
+      </div>
+    </div>
+    <div>
+      <!-- create 모드시 등록 버튼 -->
+      @if (mode === 'create') {
+        <button
+          type="submit"
+          [disabled]="!partnerForm.form.valid || submitting() || loading() || deleting()"
+          class="inline-flex w-full items-center justify-center rounded-md bg-blue-400 p-2 text-white disabled:bg-gray-400"
+        >
+          {{ submitting() ? '등록 중...' : '등록' }}
+        </button>
+        <!-- edit 모드시 수정/삭제 버튼 -->
+      } @else {
+        <button
+          type="button"
+          (click)="cancel.emit(); dialogRef?.close(false)"
+          [disabled]="submitting() || loading()"
+          class="inline-flex flex-1 items-center justify-center rounded-md bg-gray-300 p-2 text-white disabled:bg-gray-400"
+        >
+          취소
+        </button>
+        <button
+          type="submit"
+          [disabled]="!partnerForm.form.valid || submitting() || loading() || deleting()"
+          class="inline-flex flex-1 items-center justify-center rounded-md bg-blue-600 p-2 text-white disabled:bg-gray-400"
+        >
+          {{ submitting() ? '수정 중...' : '수정' }}
+        </button>
+      }
+    </div>
+    <app-confirm-dialog
+      (click)="confirmOpen.set(true)"
+      title="협력사 삭제"
+      [description]="formData.name + '을(를) 삭제하시겠습니까?'"
+      [danger]="true"
+      [loading]="deleting()"
+      (closed)="handleDialogClose($event)"
+    />
+  </form>
+</div>

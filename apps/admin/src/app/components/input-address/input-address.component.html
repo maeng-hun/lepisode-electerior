@@ -1,0 +1,11 @@
+<button class="flex w-full items-center gap-2" (click)="handleAddress($event)">
+  <div class="w-full rounded-md border border-gray-300 p-2 focus-within:border-blue-500">
+    <input
+      [id]="id()"
+      [readOnly]="true"
+      [(value)]="value"
+      class="w-full text-sm placeholder-gray-300 outline-none"
+      [placeholder]="placeholder()"
+    />
+  </div>
+</button>

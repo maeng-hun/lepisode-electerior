@@ -1,0 +1,21 @@
+model Banner {
+  id          String  @id @default(cuid(2))
+  title       String  @db.VarChar(50)
+  description String? @db.VarChar(100)
+  isVisible   Boolean @default(true)
+  link        String?
+  admin       Admin   @relation(references: [id], fields: [adminId])
+  adminId     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // pcImage       File   @relation("BannerPC", references: [id], fields: [pcImageId])
+  // pcImageId     String @unique
+  // mobileImage   File   @relation("BannerMobile", references: [id], fields: [mobileImageId])
+  // mobileImageId String @unique
+
+  pcImageUrl String?
+  mobileImageUrl String?
+}
+

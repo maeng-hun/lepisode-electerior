@@ -1,0 +1,23 @@
+/// 사용자 인증 정보
+model Auth {
+    id          String        @id @default(cuid())           /// 인증 ID
+    provider    AuthProvider                              /// 인증 제공자
+    providerId  String?                                   /// 인증 제공자 ID
+    email       String?                                   /// 이메일
+    password    String?                                   /// 비밀번호
+    createdAt   DateTime     @default(now())              /// 생성 일시
+    updatedAt   DateTime     @default(now()) @updatedAt   /// 수정 일시
+    userId      String                                    /// 사용자 ID
+    user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, email])
+}
+
+/// 인증 제공자
+enum AuthProvider {
+    EMAIL
+    KAKAO
+    NAVER
+    GOOGLE
+    APPLE
+}

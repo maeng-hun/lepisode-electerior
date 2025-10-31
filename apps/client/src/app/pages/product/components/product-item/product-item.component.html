@@ -1,0 +1,31 @@
+<button
+  type="button"
+  (click)="goToDetail()"
+  class="flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 shadow-sm transition hover:shadow-lg"
+>
+  <!-- 이미지 컨테이너 - 고정 높이 -->
+  <div class="w-full flex-shrink-0 overflow-hidden rounded-t-2xl">
+    <div class="aspect-[4/3] w-full bg-gray-100">
+      <img
+        [src]="item()?.image?.url || '/assets/product/product-sample.png'"
+        alt="제품 이미지"
+        class="h-full w-full object-cover"
+      />
+    </div>
+  </div>
+
+  <!-- 텍스트 영역 - 나머지 공간 차지 -->
+  <div class="flex flex-1 flex-col justify-between gap-3 p-4">
+    <div>
+      <h3 class="text-start tracking-[-0.64px] text-gray-500 lg:text-lg lg:font-semibold lg:tracking-[-0.72px]">
+        {{ productTypeLabel }}
+      </h3>
+      <p class="pretendard line-clamp-1 text-start text-lg font-semibold text-gray-800 lg:text-2xl lg:font-bold">
+        {{ item()?.description }}
+      </p>
+    </div>
+    <p class="text-end font-semibold tracking-[-0.64px] text-gray-800 lg:text-lg lg:tracking-[-0.8px]">
+      {{ item()?.price | number }}원
+    </p>
+  </div>
+</button>

@@ -1,0 +1,47 @@
+<div class="flex flex-col items-center gap-2 p-3">
+  <p class="text-xl font-extrabold text-blue-900">PORTFOLIO</p>
+  <p class="text-xl font-bold">지금 포트폴리오에서 확인해보세요</p>
+</div>
+
+<!--슬라이드 2-->
+<div id="portfolio" class="w-full">
+  <div class="mx-auto flex flex-col">
+    <div class="order-2 row-span-2 flex flex-col gap-5">
+      <!-- 페이드 기준: isolate + relative -->
+      <div class="relative isolate">
+        <swiper-container
+          #swiper
+          space-between="12"
+          (swiperslidechange)="slideIndex.set(swiper.swiper.activeIndex)"
+          breakpoints='{
+    "640": { "slidesPerView": 3, "spaceBetween": 5 },
+    "1024": { "slidesPerView": 5, "spaceBetween": 15 }
+  }'
+        >
+          @for (portfolio of portfolioList; track portfolio.id; let i = $index) {
+            <swiper-slide>
+              <a
+                class="relative flex flex-col overflow-hidden rounded-2xl border border-gray-200"
+                [routerLink]="['./portfolio', portfolio.id]"
+              >
+                <img [src]="portfolio.image" class="block h-auto w-full" />
+                <div class="flex flex-col gap-1 bg-white p-5">
+                  <p class="text-lg font-bold text-blue-950">{{ portfolio.title }}</p>
+                  <p class="text-sm font-medium text-gray-600">{{ portfolio.description }}</p>
+                </div>
+              </a>
+            </swiper-slide>
+          }
+        </swiper-container>
+
+        <div class="fade-left"></div>
+        <div class="fade-right"></div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center p-10">
+    <a routerLink="/portfolio" class="inline-flex gap-1 rounded-4xl border bg-blue-950 p-3 text-sm text-white"
+      >더 많은 포트폴리오 보기</a
+    >
+  </div>
+</div>

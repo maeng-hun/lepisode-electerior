@@ -1,0 +1,33 @@
+<fieldset class="flex flex-col gap-2 [&>*]:flex-shrink-0" aria-labelledby="inquiry-type-label">
+  <h2 id="inquiry-type-label" class="flex items-center gap-1 font-semibold tracking-[-0.64px] text-gray-800">
+    <span>문의 유형</span>
+    <span class="text-primary-500 relative top-[1px] text-sm tracking-[-0.6px]">*</span>
+  </h2>
+
+  <div class="flex flex-wrap gap-2">
+    @for (type of inquiryTypes; track $index) {
+      <label
+        class="flex cursor-pointer items-center gap-1 rounded-xl border px-4 py-3 tracking-[-0.64px] text-gray-400 transition duration-300 hover:border-blue-500"
+        [class.border-[#E8F4FA]]="selectedType() === type"
+        [class.bg-[#E8F4FA]]="selectedType() === type"
+        [class.text-secondary-500]="selectedType() === type"
+        [class.border-gray-200]="selectedType() !== type"
+      >
+        <input
+          type="radio"
+          name="inquiryType"
+          [value]="type"
+          class="hidden"
+          (change)="selectType(type)"
+          [checked]="selectedType() === type"
+        />
+        <img
+          [src]="selectedType() === type ? checkedSrc() : uncheckedSrc()"
+          alt="{{ typeLabel(type) }} 아이콘"
+          class="size-6"
+        />
+        <span>{{ typeLabel(type) }}</span>
+      </label>
+    }
+  </div>
+</fieldset>

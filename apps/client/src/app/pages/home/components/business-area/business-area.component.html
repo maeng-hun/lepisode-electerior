@@ -1,0 +1,106 @@
+    <div class="flex flex-col items-center justify-center">
+      <div class="flex flex-col items-center gap-2 p-10 sm:container">
+        <p class="text-xl font-extrabold text-blue-900">BUSINESS AREA</p>
+        <div class="text-center text-xl font-semibold">
+          <p>전기 인테리어의 새로운 기준,</p>
+          <p>일렉테리어 서비스</p>
+        </div>
+        <div class="text-center text-ml font-bold text-gray-400">
+          <p>공공기관부터 기업까지, 신뢰로 연결되는 B2B·B2G 전문 서비스.</p>
+          <p>IT 구매부터 상업 인테리어, 프리미엄 라운지 운영까지 원스톱으로 제공합니다.</p>
+        </div>
+
+        <!-- swipe card // for문 써서 코드-->
+        <div class="flex flex-col items-center p-10 mx-auto ">
+          <div class="hidden lg:grid grid-cols-1 gap-10 text-white lg:grid-cols-3">
+            <!-- 첫 번째 카드 -->
+            <div class="relative flex flex-col ">
+              <div>
+                <img src="assets/portfolio/TopNavigator1.svg" class="block w-full sm:h-90" />
+                <div class="absolute inset-0 z-10 flex flex-col p-8 gap-1 text-white">
+                  <p class="block text-xl font-semibold">B2B & B2B·B2G</p>
+                  <p class="block text-xl font-semibold">IT 구매 솔루션</p>
+                  <p class="text-sm">서비스에 대한 설명 공간입니다.</p>
+                  <span class="inline-flex gap-1 self-start rounded-xl border p-1 text-xs"
+                    >바로가기
+                    <img src="assets/portfolio/arrow-right.svg" class="size-4" />
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 두 번째 카드 -->
+            <div class="relative flex flex-col overflow-hidden rounded-lg">
+              <div>
+                <img src="assets/portfolio/TopNavigator2.svg" class="block w-full sm:h-90" />
+                <div class="absolute inset-0 z-10 flex flex-col p-8 gap-1 text-white">
+                  <p class="block text-xl font-semibold">상업 공간 인테리어</p>
+                  <p class="text-sm">서비스에 대한 설명 공간입니다.</p>
+                  <span class="inline-flex gap-1 self-start rounded-xl border p-1 text-xs"
+                    >바로가기
+                    <img src="assets/portfolio/arrow-right.svg" class="size-4" />
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 세 번째 카드 -->
+            <div class="relative flex flex-col overflow-hidden rounded-lg">
+              <div>
+                <img src="assets/portfolio/TopNavigator3.svg" class="block w-full sm:h-90" />
+                <div class="absolute inset-0 z-10 flex flex-col p-8 gap-1 text-white">
+                  <p class="block text-xl font-semibold">프리미엄 라운지 운영</p>
+                  <p class="block text-xl font-semibold">IT 구매 솔루션</p>
+                  <p class="text-sm">서비스에 대한 설명 공간입니다.</p>
+                  <span class="mr-10 inline-flex gap-1 self-start rounded-xl border p-1 text-xs"
+                    >바로가기
+                    <img src="assets/portfolio/arrow-right.svg" class="size-4" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+  <!-- 모바일 버전용 슬라이드 1 -->
+  <div class="order-2 row-span-2 flex flex-col gap-4 md:order-2 lg:hidden">
+    <swiper-container
+      #swiper
+      class="w-60 h-80"
+      slides-per-view="1"
+      (swiperslidechange)="slideIndex.set(swiper.swiper.activeIndex)"
+    >
+      <!-- 슬라이드 반복 -->
+      @for (item of slideItems; track $index) {
+        <swiper-slide>
+          <div class="relative w-full overflow-hidden rounded-xl">
+            <!-- 이미지 -->
+            <img [src]="item.src" class="size-full object-cover" />
+
+            <!-- 오버레이 텍스트 -->
+            <div class="absolute inset-0 z-10 flex flex-col p-8 gap-1 text-white">
+              <p class="text-lg font-bold">{{ item.title }}</p>
+              <p class="text-lg font-bold">{{ item.title2 }}</p>
+              <p class="text-sm">{{ item.description }}</p>
+              <p class="mr-10 inline-flex gap-1 self-start rounded-xl border p-1 text-xs">{{item.button}}
+              <img src="assets/portfolio/arrow-right.svg" class="size-4" />
+              </p>
+            </div>
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+    <!-- 슬라이드 위치 직관 반복 -->
+    <div class="flex items-center justify-center gap-1">
+      @for (_ of slideItems.length | repeat; track $index) {
+        <div
+          class="size-3 rounded-full bg-neutral-400 transition-colors"
+          [class.bg-primary]="slideIndex() === $index"
+        ></div>
+      }
+    </div>
+  </div>
+
+      </div>
+    </div>

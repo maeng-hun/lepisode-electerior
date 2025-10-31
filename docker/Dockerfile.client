@@ -1,0 +1,9 @@
+FROM node:lts-alpine3.20
+
+WORKDIR /app
+
+COPY dist/apps/client /app
+
+CMD ["node", "server/server.mjs"]
+
+EXPOSE 4000

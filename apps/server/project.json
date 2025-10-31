@@ -1,0 +1,55 @@
+{
+  "name": "server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "webpack-cli build",
+        "args": ["--node-env=production"]
+      },
+      "configurations": {
+        "development": {
+          "args": ["--node-env=development"]
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "local",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "node dist/apps/server/main.js",
+        "cwd": "."
+      },
+      "configurations": {
+        "local": {
+          "command": "node dist/apps/server/main.js",
+          "env": {
+            "NODE_ENV": "local"
+          }
+        },
+        "development": {
+          "command": "node dist/apps/server/main.js",
+          "env": {
+            "NODE_ENV": "development"
+          }
+        },
+        "production": {
+          "command": "node dist/apps/server/main.js",
+          "env": {
+            "NODE_ENV": "production"
+          }
+        }
+      }
+    },
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    }
+  }
+}

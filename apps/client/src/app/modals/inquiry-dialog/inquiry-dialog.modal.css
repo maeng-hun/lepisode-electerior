@@ -1,0 +1,10 @@
+.modal-wrapper {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+}

@@ -1,0 +1,11 @@
+.gradient-bg-1 {
+  background: linear-gradient(90deg, #15d177 1.68%, #2f9ea5 99.88%);
+}
+
+.gradient-bg-2 {
+  background: linear-gradient(180deg, #9f73ab 0%, #807ab2 100%);
+}
+
+.gradient-bg-3 {
+  background: linear-gradient(90deg, #6695c8 0.05%, #736fab 99.97%);
+}

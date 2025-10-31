@@ -1,0 +1,204 @@
+<div
+  class="flex flex-col gap-1 rounded-xl border border-gray-200 bg-white focus-within:border-blue-500"
+  [class.border]="!viewer()"
+>
+  @if (!viewer()) {
+    <section
+      class="flex flex-col items-start gap-2 overflow-x-auto border-b border-gray-200 px-4 py-2 sm:flex-row sm:items-center sm:gap-4"
+    >
+      <section class="buttons">
+        <button
+          appTooltip="굵게"
+          tooltipPosition="bottom"
+          (click)="handleCommand(editor?.chain()?.focus()?.toggleBold()?.run, $event)"
+          class="editor-button toggleable data-[active='true']:bg-gray-200"
+          [attr.data-active]="editor?.isActive('bold') ?? false"
+        >
+          <app-icon class="size-5 text-gray-500" name="mdi:format-bold" />
+        </button>
+        <button
+          appTooltip="밑줄"
+          (click)="handleCommand(editor?.chain()?.focus()?.toggleUnderline()?.run, $event)"
+          class="editor-button toggleable data-[active='true']:bg-gray-200"
+          [attr.data-active]="editor?.isActive('underline') ?? false"
+        >
+          <app-icon class="block size-5 text-gray-500" name="mdi:format-underline" />
+        </button>
+        <button
+          appTooltip="이탤릭체"
+          (click)="handleCommand(editor?.chain()?.focus()?.toggleItalic()?.run, $event)"
+          class="editor-button toggleable data-[active='false']:text-gray-900 data-[active='true']:bg-gray-200 data-[active='true']:text-gray-500"
+          [attr.data-active]="editor?.isActive('italic') ?? false"
+        >
+          <app-icon class="block size-5" name="mdi:format-italic" />
+        </button>
+
+        <button class="editor-button" appTooltip="글자 크기" [cdkMenuTriggerFor]="fontSizeMenu">
+          <app-icon class="block size-5 text-gray-500" name="mdi:format-size" />
+        </button>
+
+        <button class="editor-button" appTooltip="글자색" [cdkMenuTriggerFor]="textColorMenu">
+          <app-icon
+            class="block size-5 text-gray-500"
+            name="mdi:format-color-text"
+            class="block size-5"
+            [ngStyle]="{
+              'background-color': editor?.getAttributes('textStyle')['color'] || '#000 !important'
+            }"
+          />
+        </button>
+
+        <button
+          appTooltip="배경색"
+          [cdkMenuTriggerFor]="backgroundColorMenu"
+          class="editor-button"
+          [class.active]="editor?.isActive('highlight') ? editor?.isActive('highlight') : undefined"
+        >
+          <app-icon
+            class="block size-5 text-gray-500"
+            name="mdi:format-color-highlight"
+            [ngStyle]="{
+              'background-color': editor?.getAttributes('highlight')['color'] || '#000 !important'
+            }"
+          />
+        </button>
+
+        <button
+          appTooltip="이미지"
+          tooltipPosition="bottom"
+          (click)="selectImage($event)"
+          class="editor-button toggleable data-[active='true']:bg-gray-200"
+          [attr.data-active]="false"
+        >
+          <app-icon class="block size-5 text-gray-500" name="mdi:file-image" />
+        </button>
+      </section>
+
+      <div class="hidden h-4 w-px bg-gray-200 sm:block"></div>
+
+      <section class="buttons flex gap-1">
+        <button
+          appTooltip="왼쪽 정렬"
+          class="editor-button toggleable data-[active='true']:bg-gray-200"
+          (click)="handleCommand(editor?.chain()?.focus().setTextAlign('left').run, $event)"
+          [attr.data-active]="editor?.isActive({ textAlign: 'left' }) ?? false"
+        >
+          <app-icon class="block size-5 text-gray-500" name="mdi:format-align-left" />
+        </button>
+        <button
+          appTooltip="가운데 정렬"
+          class="editor-button toggleable data-[active='true']:bg-gray-200"
+          (click)="handleCommand(editor?.chain()?.focus().setTextAlign('center').run, $event)"
+          [attr.data-active]="editor?.isActive({ textAlign: 'center' }) ?? false"
+        >
+          <app-icon class="block size-5 text-gray-500" name="mdi:format-align-center" />
+        </button>
+        <button
+          appTooltip="오른쪽 정렬"
+          class="editor-button toggleable data-[active='true']:bg-gray-200"
+          (click)="handleCommand(editor?.chain()?.focus().setTextAlign('right').run, $event)"
+          [attr.data-active]="editor?.isActive({ textAlign: 'right' }) ?? false"
+        >
+          <app-icon class="block size-5 text-gray-500" name="mdi:format-align-right" />
+        </button>
+      </section>
+    </section>
+  }
+  <div class="h-[16rem] overflow-auto">
+    <div
+      #editorRef
+      class="h-full break-all *:h-full *:outline-none"
+      [style]="{ minHeight: minHeight + 'px' }"
+      [class.p-8]="!viewer()"
+      (click)="editor?.commands.focus()"
+      (keydown.enter)="editor?.commands.focus()"
+      (keydown.space)="editor?.commands.focus()"
+      tabindex="0"
+    ></div>
+  </div>
+</div>
+
+<ng-template #textColorMenu>
+  <div cdkMenu class="grid grid-flow-row grid-cols-5 gap-1 rounded-md bg-white p-2 shadow-sm">
+    @for (color of colors; track color; let i = $index) {
+      <button
+        cdkMenuItem
+        (click)="handleCommand(editor?.chain()?.focus().setColor(color).run, $event)"
+        class="editor-button size-6 rounded-full border border-neutral-200"
+        [ngStyle]="{ 'background-color': color }"
+      >
+        <span class="sr-only">텍스트 색 {{ color }}로 변경</span>
+      </button>
+    }
+  </div>
+</ng-template>
+
+<ng-template #backgroundColorMenu>
+  <div cdkMenu class="grid grid-flow-row grid-cols-5 gap-1 rounded-md bg-white p-2 shadow-sm">
+    @for (color of colors; track color; let i = $index) {
+      <button
+        cdkMenuItem
+        (click)="handleCommand(editor?.chain()?.focus()?.toggleHighlight({ color: color }).run, $event)"
+        class="editor-button size-6 rounded-full border border-neutral-200"
+        [ngStyle]="{ 'background-color': color }"
+      >
+        <span class="sr-only">셀 배경색 {{ color }}로 변경</span>
+      </button>
+    }
+  </div>
+</ng-template>
+
+<ng-template #cellBackgroundColorMenu>
+  <div cdkMenu class="grid grid-flow-row grid-cols-5 gap-1 rounded-md bg-white p-2 shadow-sm">
+    @for (color of colors; track color; let i = $index) {
+      <button
+        cdkMenuItem
+        (click)="handleCommand(editor?.chain()?.focus().setCellAttribute('backgroundColor', color).run, $event)"
+        class="editor-button size-6 rounded-full border border-neutral-200"
+        [ngStyle]="{ 'background-color': color }"
+      >
+        <span class="sr-only">셀 배경색 {{ color }}로 변경</span>
+      </button>
+    }
+  </div>
+</ng-template>
+
+<ng-template #fontSizeMenu>
+  <div cdkMenu class="flex flex-col rounded-md bg-white p-2 shadow-sm">
+    <button
+      cdkMenuItem
+      class="px-4 py-2 text-left text-sm hover:bg-gray-100"
+      (click)="handleCommand(editor?.chain()?.focus().setFontSize('12px').run, $event)"
+    >
+      작게 (12px)
+    </button>
+    <button
+      cdkMenuItem
+      class="px-4 py-2 text-left text-base hover:bg-gray-100"
+      (click)="handleCommand(editor?.chain()?.focus().setFontSize('16px').run, $event)"
+    >
+      보통 (16px)
+    </button>
+    <button
+      cdkMenuItem
+      class="px-4 py-2 text-left text-lg hover:bg-gray-100"
+      (click)="handleCommand(editor?.chain()?.focus().setFontSize('20px').run, $event)"
+    >
+      크게 (20px)
+    </button>
+    <button
+      cdkMenuItem
+      class="px-4 py-2 text-left text-xl hover:bg-gray-100"
+      (click)="handleCommand(editor?.chain()?.focus().setFontSize('24px').run, $event)"
+    >
+      더 크게 (24px)
+    </button>
+    <button
+      cdkMenuItem
+      class="px-4 py-2 text-left text-2xl hover:bg-gray-100"
+      (click)="handleCommand(editor?.chain()?.focus().setFontSize('32px').run, $event)"
+    >
+      매우 크게 (32px)
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,56 @@
+<div class="flex items-center gap-3">
+  <!-- 처음 / 이전 -->
+  <button
+    class="rounded-md px-2 py-1 hover:cursor-pointer hover:bg-gray-300"
+    (click)="changePage(1)"
+    [disabled]="pageNo() === 1"
+  >
+    <<
+  </button>
+  <button
+    class="rounded-md px-2 py-1 hover:cursor-pointer hover:bg-gray-300"
+    (click)="changePage(pageNo() - 1)"
+    [disabled]="pageNo() === 1"
+  >
+    <
+  </button>
+
+  <!-- 페이지 번호 -->
+  <div class="flex gap-2">
+    @for (page of [].constructor(totalPages); track $index; let i = $index) {
+      <button
+        class="rounded-md px-3 py-1 hover:cursor-pointer hover:bg-gray-200"
+        [ngClass]="{
+          'border-blue-500 bg-blue-500 text-white': pageNo() === i + 1,
+          'border-gray-300 bg-white text-black': pageNo() !== i + 1
+        }"
+        (click)="changePage(i + 1)"
+      >
+        {{ i + 1 }}
+      </button>
+    }
+  </div>
+
+  <!-- 다음 / 마지막 -->
+  <button
+    class="rounded-md px-2 py-1 hover:cursor-pointer hover:bg-gray-300"
+    (click)="changePage(pageNo() + 1)"
+    [disabled]="pageNo() === totalPages"
+  >
+    >
+  </button>
+  <button
+    class="rounded-md px-2 py-1 hover:cursor-pointer hover:bg-gray-300"
+    (click)="changePage(totalPages)"
+    [disabled]="pageNo() === totalPages"
+  >
+    >>
+  </button>
+
+  <!-- 페이지 크기 선택 -->
+  <select class="rounded border border-gray-500 px-2 py-1" [value]="pageSize()" (change)="onPageSizeSelect($event)">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+  </select>
+</div>

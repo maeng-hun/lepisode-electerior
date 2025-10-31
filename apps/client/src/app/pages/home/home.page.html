@@ -1,0 +1,131 @@
+<div class="flex min-h-screen w-full flex-col bg-white">
+  <!-- 배너 섹션 -->
+
+  <section id="hero" class="h-screen w-full bg-cover bg-no-repeat">
+    <swiper-container
+      #swiper
+      class="h-screen w-full"
+      slides-per-view="1"
+      loop="true"
+      autoplay="true"
+      (swiperslidechange)="handleSlideChange($event)"
+      (swiperautoplaytimeleft)="handleProgress($event)"
+    >
+      <swiper-slide>
+        <div
+          class="lg: flex size-full flex-col gap-6 px-10 py-50 text-white lg:justify-end lg:px-58 lg:pb-48"
+          style="background-image: url('assets/portfolio/HomeBanner.svg')"
+        >
+          <img src="assets/portfolio/electerior.svg" alt="Logo" class="w-48" />
+
+          <h1 class="text-2xl font-semibold lg:text-[30px]">
+            당신의 공간을 혁신적으로, <br />
+            일렉테리어와 함께 미래를 경험하세요.
+          </h1>
+
+          <p class="text-ml font-normal lg:text-xl">
+            공간에 활력을 불어넣어 함께 성장할 수 있도록, <br />
+            일렉테리어가 함께합니다.
+          </p>
+
+          <div class="flex items-center gap-6">
+            <span> {{ activeSlide() }} / {{ totalSlides() }} </span>
+            <progress
+              class="my-progress progress-value-white progress-bar-white/50 h-1 rounded-full"
+              [value]="percentage()"
+              max="100"
+            ></progress>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div
+          class="lg: flex size-full flex-col gap-6 px-10 py-50 text-white lg:justify-end lg:px-58 lg:pb-48"
+          style="background-image: url('assets/portfolio/HomeBanner.svg')"
+        >
+          <img src="assets/portfolio/electerior.svg" alt="Logo" class="w-48" />
+
+          <h1 class="text-2xl font-semibold lg:text-[30px]">
+            당신의 공간을 혁신적으로, <br />
+            일렉테리어와 함께 미래를 경험하세요.
+          </h1>
+
+          <p class="text-ml font-normal lg:text-xl">
+            공간에 활력을 불어넣어 함께 성장할 수 있도록, <br />
+            일렉테리어가 함께합니다.
+          </p>
+
+          <div class="flex items-center gap-6">
+            <span> {{ activeSlide() }} / {{ totalSlides() }} </span>
+            <progress
+              class="my-progress progress-value-white progress-bar-white/50 h-1 rounded-full"
+              [value]="percentage()"
+              max="100"
+            ></progress>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div
+          class="lg: flex size-full flex-col gap-6 px-10 py-50 text-white lg:justify-end lg:px-58 lg:pb-48"
+          style="background-image: url('assets/portfolio/HomeBanner.svg')"
+        >
+          <img src="assets/portfolio/electerior.svg" alt="Logo" class="w-48" />
+
+          <h1 class="text-2xl font-semibold lg:text-[30px]">
+            당신의 공간을 혁신적으로, <br />
+            일렉테리어와 함께 미래를 경험하세요.
+          </h1>
+
+          <p class="text-ml font-normal lg:text-xl">
+            공간에 활력을 불어넣어 함께 성장할 수 있도록, <br />
+            일렉테리어가 함께합니다.
+          </p>
+
+          <div class="flex items-center gap-6">
+            <span> {{ activeSlide() }} / {{ totalSlides() }} </span>
+            <progress
+              class="my-progress progress-value-white progress-bar-white/50 h-1 rounded-full"
+              [value]="percentage()"
+              max="100"
+            ></progress>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </section>
+
+  <!-- Business Area-->
+  <div>
+    <app-business-area></app-business-area>
+
+    <!-- portfolio -->
+    <app-portfolio></app-portfolio>
+
+    <!-- LEPISODE -->
+    <div>
+      <div class="relative overflow-hidden">
+        <img src="assets/portfolio/Background.svg" alt="" class="absolute inset-0 h-full w-full object-cover" />
+
+        <div class="relative flex h-90 min-h-80 flex-col items-center justify-center gap-4 p-10 text-center text-white">
+          <img src="assets/portfolio/Group.svg" alt="" class="size-30" />
+          <div class="relative flex h-90 flex-col justify-center gap-2 text-center text-white">
+            <p class="text-xl leading-snug font-bold sm:text-2xl md:text-3xl">
+              홈페이지와 앱 개발은 믿을 수 있는 파트너
+            </p>
+            <p class="text-xl leading-snug font-bold sm:text-2xl md:text-3xl">'레피소드'와 함께하세요.</p>
+            <span class="mx-auto inline-flex gap-2 rounded-2xl border p-2 text-xs"> 레피소드 바로가기 </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--PARTNERS-->
+    <app-partners></app-partners>
+
+    <!-- CONTACT US -->
+    <app-contact></app-contact>
+
+    <app-up-btn />
+  </div>
+</div>

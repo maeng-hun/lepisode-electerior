@@ -1,0 +1,54 @@
+<div
+  class="relative flex w-full max-w-xs min-w-xs flex-col items-center rounded-2xl bg-white p-6 text-center shadow-xl md:p-8"
+  role="dialog"
+  aria-modal="true"
+>
+  <!-- Icon -->
+  @if (data.danger) {
+    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+      <img
+        src="https://cdn.jsdelivr.net/npm/lucide-static/icons/alert-triangle.svg?color=ff0000"
+        alt="경고 아이콘"
+        class="h-6 w-6"
+      />
+    </div>
+  }
+
+  <!-- Title -->
+  <h2 class="mb-2 text-xl font-semibold text-gray-900">
+    {{ data.title || '확인' }}
+  </h2>
+
+  <!-- Description -->
+  @if (data.description) {
+    <p class="mb-6 text-gray-600">
+      {{ data.description }}
+    </p>
+  }
+
+  <!-- Buttons -->
+  <div class="flex w-full gap-4">
+    <button
+      type="button"
+      class="flex-1 cursor-pointer rounded-lg border border-gray-300 bg-white py-2 font-medium text-gray-700 transition hover:bg-gray-100"
+      (click)="onCancel()"
+      [disabled]="data.loading"
+    >
+      {{ data.cancelText || '취소' }}
+    </button>
+
+    <button
+      type="button"
+      class="flex-1 cursor-pointer rounded-lg py-2 font-medium text-white transition"
+      [ngClass]="
+        data.danger
+          ? 'bg-red-600 hover:bg-red-700 active:bg-red-800'
+          : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800'
+      "
+      (click)="onConfirm()"
+      [disabled]="data.loading"
+    >
+      {{ data.loading ? '진행 중...' : data.confirmText || '확인' }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="flex- flex flex-col items-center justify-center bg-gray-200 py-10 text-center">
+  <div class="p-5">
+    <p class="text-xl font-bold text-blue-900">PARTNERS</p>
+    <div class="flex flex-col items-center text-2xl font-semibold">
+      <p>다양한 산업 현장에서 신뢰받는 전기 인테리어 파트너,</p>
+      <p>일렉테리어와 함께하세요.</p>
+    </div>
+  </div>
+
+  <!-- partners 슬라이드3 -->
+  <div id="partners" class="w-full">
+    <div class="mx-auto flex flex-col">
+      <div class="order-2 row-span-2 flex flex-col">
+        <!-- 페이드 기준: isolate + relative -->
+        <div class="relative isolate">
+          <!-- <div class="mx-auto flex items-center justify-center">
+             @for (item of partnersList; track $index) {
+                 <div class="flex flex-col gap-10 p-3">
+                    <div class="flex size-15 w-full flex-col items-center justify-center">
+                      <img [src]="item.src" class="h-20 w-auto rounded-2xl border border-white bg-white p-3" />
+                    </div>
+                  </div>
+              }
+          </div> -->
+          <div class="flex max-w-screen flex-col gap-5 overflow-x-hidden py-5">
+            <!-- Partners list -->
+            <div class="loop--slider">
+              <div class="loop--slide--track">
+                @for (partner of partnersList; track $index) {
+                  <div class="loop--slide">
+                    <img
+                      [src]="partner.src"
+                      class="flex h-[50px] w-[200px] min-w-[200px] items-center justify-center rounded-2xl border border-white bg-white p-1"
+                    />
+                  </div>
+                }
+                <!-- loop 복제본-->
+                @for (partner of partnersList; track 'dup-' + $index) {
+                  <div class="loop--slide">
+                    <img
+                      [src]="partner.src"
+                      class="flex h-[50px] w-[200px] min-w-[200px] items-center justify-center rounded-2xl border border-white bg-white p-1"
+                    />
+                  </div>
+                }
+              </div>
+            </div>
+            <div class="r-loop--slider">
+              <div class="r-loop--slide--track">
+                @for (partner of partnersList; track $index) {
+                  <div class="r-loop--slide">
+                    <img
+                      [src]="partner.src"
+                      class="flex h-[50px] w-[200px] min-w-[200px] items-center justify-center rounded-2xl border border-white bg-white p-1"
+                    />
+                  </div>
+                }
+                @for (partner of partnersList; track 'dup-' + $index) {
+                  <div class="r-loop--slide">
+                    <img
+                      [src]="partner.src"
+                      class="flex h-[50px] w-[200px] min-w-[200px] items-center justify-center rounded-2xl border border-white bg-white p-1"
+                    />
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- 왼쪽/오른쪽 페이드 항상 Swiper 위 -->
+          <div class="fade-left"></div>
+          <div class="fade-right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

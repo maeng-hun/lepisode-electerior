@@ -1,0 +1,42 @@
+<header
+  class="fixed top-0 z-50 flex h-14 w-full justify-between border border-transparent bg-white py-4 transition duration-300 lg:h-18"
+  [class.border-b-gray-200]="isScrolled()"
+>
+  <nav class="container flex items-center justify-between px-5">
+    <!-- 로고 -->
+    <a routerLink="/" class="cursor-pointer">
+      <img
+        src="/assets/recruitment/logo.png"
+        alt="일렉테리어 로고"
+        class="h-[24.69px] w-[132.57px] bg-cover bg-center bg-no-repeat"
+      />
+    </a>
+
+    <!-- 모바일: 햄버거 버튼 -->
+    <button type="button" (click)="onMenuClick()" class="cursor-pointer lg:hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+
+    <!-- lg 이상: 상단 메뉴 -->
+    <div class="hidden gap-13 font-semibold tracking-[-0.64px] text-gray-800 lg:flex">
+      @for (item of navItems; track i; let i = $index) {
+        <a class="cursor-pointer" [routerLink]="[item.path]">
+          {{ item.label }}
+        </a>
+      }
+    </div>
+  </nav>
+</header>

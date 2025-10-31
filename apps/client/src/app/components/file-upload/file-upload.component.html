@@ -1,0 +1,87 @@
+<label for="fileInput" class="flex flex-col gap-2">
+  <span class="font-semibold tracking-[-0.64px] text-gray-800">첨부 파일</span>
+
+  <!-- 드래그 앤 드롭 영역 -->
+  <div
+    role="button"
+    tabindex="0"
+    class="flex w-full cursor-pointer flex-col items-center gap-3 rounded-sm border border-dashed border-gray-300 p-8 text-center"
+    (click)="openFileDialog()"
+    (keydown.enter)="openFileDialog()"
+    (keydown.space)="openFileDialog()"
+    (dragover)="$event.preventDefault()"
+    (drop)="onFileDrop($event)"
+  >
+    <img src="/assets/about/file-text.svg" alt="파일 첨부 아이콘" class="size-6 lg:size-8" />
+    <p class="tracking-[-0.64px] text-gray-800">파일을 선택하거나 끌어다 놓기</p>
+    <p class="text-sm tracking-[-0.56px] text-gray-500">
+      파일은 최대 5MB JPG, PNG, PDF, -<br class="lg:hidden" />
+      파일을 추가할 수 있습니다.
+    </p>
+    <button
+      type="button"
+      class="cursor-pointer rounded-lg border border-gray-200 px-3 py-2 text-sm tracking-[-0.56px] text-gray-800"
+      (click)="openFileDialog(); $event.stopPropagation()"
+    >
+      파일 선택
+    </button>
+
+    <input #fileInput type="file" formControlName="file" class="hidden" (change)="onFileSelected($event)" multiple />
+  </div>
+
+  <!-- 선택한 파일 이름 표시 -->
+  <ul class="flex flex-col gap-1 text-gray-600">
+    @for (fileWithPreview of displayedFiles; track fileWithPreview.file.name) {
+      <li class="flex items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-gray-400">
+        <div class="flex items-center gap-3">
+          @if (fileWithPreview.previewUrl && isImageFile(fileWithPreview.file)) {
+            <img [src]="fileWithPreview.previewUrl" alt="미리보기 이미지" class="h-8 w-8 rounded object-cover" />
+          } @else {
+            <div class="flex h-8 w-8 items-center justify-center rounded bg-gray-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14.5 2H9L7 4.5H2.5A1.5 1.5 0 0 0 1 6v8a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5V3.5A1.5 1.5 0 0 0 14.5 2z"
+                />
+              </svg>
+            </div>
+          }
+          <div class="flex flex-col">
+            <span class="text-sm text-gray-800">{{ fileWithPreview.file.name }}</span>
+            @if (fileWithPreview.isExisting) {
+              <span class="text-xs text-blue-600">기존 파일</span>
+            }
+          </div>
+        </div>
+
+        <button
+          type="button"
+          (click)="removeFile(fileWithPreview)"
+          class="flex h-8 w-8 cursor-pointer items-center justify-center rounded hover:bg-gray-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="3" x2="13" y2="13" />
+            <line x1="13" y1="3" x2="3" y2="13" />
+          </svg>
+        </button>
+      </li>
+    }
+  </ul>
+</label>

@@ -1,0 +1,19 @@
+model Feed {
+    id       String   @id @default(cuid())                          
+    title    String                                               
+    content  String                                               
+    createdAt DateTime @default(now())                              
+    updatedAt DateTime @updatedAt                                   
+    deletedAt DateTime?
+
+    userId   String?                                                 
+    user     User?    @relation(fields: [userId], references: [id])
+
+    tripId    String?    
+    trip      Trip?      @relation(fields: [tripId], references: [id])
+
+    likes    Like[]
+    images   File[]
+
+    favoritedBy User[] @relation("FeedFavorites")                                               
+}     

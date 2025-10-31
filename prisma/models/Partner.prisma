@@ -1,0 +1,9 @@
+model Partner {
+  id        String   @id @default(cuid(2))
+  name      String
+  link      String?
+  createdAt DateTime @default(now())
+
+  imageId String? @unique
+  image File? @relation(fields: [imageId], references: [id])
+}

@@ -1,0 +1,23 @@
+model Product {
+    id String @id @default(cuid(2))
+    productType ProductType
+    description String
+    isExposed Boolean @default(false) 
+    price Int?
+    link String?
+    createdAt DateTime @default(now()) 
+    updatedAt DateTime @updatedAt
+    deletedAt DateTime?
+    order Int
+
+    imageId String? @unique
+    image   File? @relation(fields: [imageId], references: [id])
+}
+
+enum ProductType {
+    GPU_SERVER
+    MOBILE_APP
+    WEB_APP_MAINT
+    CLOUD_INFRA
+    TECH_CONSULT
+}

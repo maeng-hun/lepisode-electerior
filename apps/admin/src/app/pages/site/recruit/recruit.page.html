@@ -1,0 +1,63 @@
+<div class="flex flex-col gap-5 p-6">
+  <div class="flex items-center justify-between gap-2">
+    <div class="relative w-1/2 xl:max-w-1/3">
+      <app-search-form (keywordSearch)="jobSearch($event)" />
+    </div>
+    <button
+      (click)="openForm()"
+      type="button"
+      class="flex cursor-pointer items-center gap-2 rounded-md bg-blue-500 px-4 py-2 whitespace-nowrap text-white shadow-md transition duration-300 hover:bg-blue-700"
+    >
+      <img src="https://api.iconify.design/lucide/plus.svg?color=white" alt="등록아이콘" width="24" height="24" />
+      등록
+    </button>
+  </div>
+  <div class="overflow-x-auto">
+    <li class="grid grid-cols-[0.5fr_0.8fr_3fr_1.5fr_1fr_2fr] items-center border-b border-gray-200 bg-white px-4 py-2">
+      <span>번호</span>
+      <span>고정</span>
+      <span>제목</span>
+      <span>작성자</span>
+      <span>조회수</span>
+      <span>등록일시</span>
+    </li>
+
+    @for (notice of $data.value()?.items || []; track $index) {
+      <li
+        class="grid grid-cols-[0.5fr_0.8fr_3fr_1.5fr_1fr_2fr] items-center border-b border-gray-200 bg-white px-4 py-2"
+      >
+        <span>{{ notice.rowNumber }}</span>
+        <span>{{ notice.isPinned ? '📌' : '-' }}</span>
+        <span class="truncate overflow-hidden whitespace-nowrap" style="max-width: 250px">{{ notice.title }} </span>
+        <span>{{ notice.admin }}</span>
+        <span>{{ notice.views }}</span>
+        <span>{{ notice.createdAt | date: 'yyyy-MM-dd' }}</span>
+      </li>
+    }
+  </div>
+  <!-- 페이지네이션 -->
+  <section class="flex items-center justify-between">
+    <p class="font-semibold">
+      전체 <span class="text-blue-500">{{ $data.value()?.totalCount || 0 }} </span>
+    </p>
+    <app-mhpagination
+      [totalCount]="$data.value()?.totalCount || 0"
+      [pageNo]="searchOption().pageNo"
+      [pageSize]="searchOption().pageSize"
+      (pageChange)="
+        searchOption.set({
+          pageSize: searchOption().pageSize,
+          pageNo: $event,
+          keyword: searchOption().keyword
+        })
+      "
+      (pageSizeChange)="
+        searchOption.set({
+          pageSize: $event,
+          pageNo: searchOption().pageNo,
+          keyword: searchOption().keyword
+        })
+      "
+    />
+  </section>
+</div>

@@ -1,0 +1,13 @@
+model Policy {
+  id        String         @id @default(cuid(2))
+  category  PolicyCategory
+  title     String
+  content   String
+  createdAt DateTime       @default(now())
+}
+
+enum PolicyCategory {
+  TERM
+  PRIVACY
+  MARKETING
+}

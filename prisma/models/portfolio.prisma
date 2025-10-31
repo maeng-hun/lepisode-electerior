@@ -1,0 +1,12 @@
+model Portfolio {
+  id       String   @id @default(cuid(2))
+  title    String
+  description String?
+  views    Int      @default(0)
+  createdAt DateTime @default(now())
+  deletedAt DateTime?
+  order Int @default(0)
+
+  images File[]
+}
+

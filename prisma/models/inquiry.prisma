@@ -1,0 +1,24 @@
+model Inquiry {
+  id            String   @id @default(cuid(2))
+  isPending     Boolean  @default(true)
+  name          String
+  email         String
+  contact       String
+  content       String
+  type          InquiryType?   // 문의 유형
+  companyName   String?
+  availableTime String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
+
+  productType   ProductType?
+
+  images File[]
+}
+
+enum InquiryType {
+  PRODUCT
+  APP
+  ETC
+}

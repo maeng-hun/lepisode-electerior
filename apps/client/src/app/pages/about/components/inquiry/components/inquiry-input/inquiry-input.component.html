@@ -1,0 +1,21 @@
+<label [attr.for]="uniqueId" class="flex flex-col gap-2 text-black">
+  <div class="flex items-center gap-1">
+    <span class="font-semibold tracking-[-0.64px] text-gray-800">{{ label() }}</span>
+
+    @if (required()) {
+      <span class="text-primary-500 relative top-[1px] text-sm tracking-[-0.6px]">*</span>
+    }
+  </div>
+
+  <div class="w-full rounded-xl border border-gray-200 px-4 py-3 focus-within:border-blue-500">
+    <input
+      [(ngModel)]="value"
+      [type]="type()"
+      [maxlength]="maxlength()"
+      [placeholder]="placeholder()"
+      [id]="uniqueId"
+      (input)="onInput($event)"
+      class="w-full tracking-[-0.64px] placeholder-gray-400 outline-none"
+    />
+  </div>
+</label>

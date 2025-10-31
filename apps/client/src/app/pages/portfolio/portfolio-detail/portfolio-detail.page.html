@@ -1,0 +1,86 @@
+@if (portfolio(); as portfolio) {
+  <div class="flex min-h-screen w-full flex-col bg-white">
+    <!-- 배너 -->
+    <app-hero-section
+      title="PORTFOLIO"
+      line1="공간의 품격을 높이는, 일렉테리어의"
+      line2="프리미엄 전기 솔루션을 만나보세요."
+    />
+    <div class="flex w-full flex-col p-10">
+      <div class="mx-auto flex flex-col gap-10 lg:px-44 lg:py-20">
+        <div class="flex flex-col gap-3 text-center">
+          <div class="flex justify-between p-5">
+            <p class="text-2xl font-bold">{{ portfolio.title }}</p>
+            <p class="text-gray-600">조회수: {{ portfolio.views }}</p>
+          </div>
+          <img
+            [src]="portfolio.images?.[0]?.url || 'assets/portfolio/portfolio1.svg'"
+            alt="배너 이미지"
+            class="h-full w-full object-cover"
+          />
+        </div>
+
+        <div class="flex gap-5">
+          <img
+            [src]="portfolio.images?.[1]?.url || 'assets/portfolio/portfolio2.svg'"
+            alt="포트폴리오 이미지1"
+            class="h-full w-full object-cover"
+          />
+          <div class="flex flex-col gap-5">
+            <img
+              [src]="portfolio.images?.[2]?.url || 'assets/portfolio/portfolio3.svg'"
+              alt="포트폴리오 이미지2"
+              class="h-full w-full object-cover"
+            />
+            <img
+              [src]="portfolio.images?.[3]?.url || 'assets/portfolio/portfolio1.svg'"
+              alt="포트폴리오 이미지3"
+              class="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <p class="line-clamp-1 overflow-x-hidden text-gray-600">
+            @if (expanded()) {
+              {{ portfolio.description }}
+            } @else {
+              {{ portfolio.description }}
+            }
+          </p>
+          <button class="p-3 text-gray-700 hover:underline" (click)="expanded.set(!expanded())">
+            {{ expanded() ? '접기' : '상세정보 펼치기' }}
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-5">
+          <p class="text-xl font-semibold">추천 포트폴리오</p>
+
+          <div class="flex items-start gap-1"></div>
+          <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
+            @for (portfolios of recommendPortfolio(); track portfolios.id) {
+              <a
+                class="relative flex flex-col overflow-hidden rounded-2xl border border-gray-200"
+                [routerLink]="['/portfolio', portfolio.id]"
+              >
+                <img
+                  [src]="portfolio.images?.[0]?.url || 'assets/portfolio/portfolio1.svg'"
+                  class="block h-auto w-full"
+                />
+                <div class="flex flex-col gap-1 bg-white p-5">
+                  <p class="line-clamp-1 text-lg font-bold text-blue-950">{{ portfolios.title }}</p>
+                  <p class="line-clamp-2 text-sm font-medium text-gray-600">{{ portfolios.description }}</p>
+                </div>
+              </a>
+            }
+          </div>
+        </div>
+        <div>
+          <button (click)="location.back()" class="inline-flex cursor-pointer justify-center text-sm lg:justify-start">
+            <img src="assets/portfolio/arrow-left.svg" class="size-5" />
+            포트폴리오 목록으로 돌아가기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,15 @@
+model JobOpening {
+  id       String   @id @default(cuid(2))
+  isPinned Boolean? 
+  order Int?
+  title    String
+  content  String
+  views    Int      @default(0)
+  images File[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  admin    Admin    @relation(fields: [adminId], references: [id])
+  adminId  String
+}

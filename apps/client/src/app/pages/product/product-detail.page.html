@@ -1,0 +1,45 @@
+<article class="flex w-full flex-col">
+  <app-hero-section
+    title="PRODUCT"
+    line1="공간의 품격을 높이는, 일렉테리어의"
+    line2="프리미엄 전기 솔루션을 만나보세요."
+  />
+
+  <section class="container mx-auto my-8 flex flex-col gap-6 lg:flex-row lg:gap-12">
+    <!-- 이미지 -->
+    <div class="flex-1">
+      <img
+        [src]="product()?.image?.url || '/assets/product/product-sample.png'"
+        alt="제품 이미지"
+        class="w-full rounded-2xl object-cover"
+      />
+    </div>
+
+    <!-- 제품 정보 + 버튼 -->
+    <div class="flex flex-1 flex-col justify-between gap-4">
+      <div class="flex flex-col gap-3">
+        <!-- enum → 화면용 텍스트로 변경 -->
+        <h3 class="text-lg font-semibold text-gray-500">{{ productTypeLabel }}</h3>
+        <h2 class="text-2xl font-bold text-gray-800 lg:text-3xl">{{ product()?.description }}</h2>
+        <p class="text-xl font-semibold text-gray-800">{{ product()?.price | number }}원</p>
+        <p class="flex items-center gap-2 text-lg">
+          제품 링크 :
+          <a
+            href="{{ product()?.link }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            (click)="$event.stopPropagation()"
+            class="text-primary line-clamp-1 truncate underline"
+          >
+            {{ product()?.link }}
+          </a>
+        </p>
+      </div>
+
+      <!-- 문의 버튼 -->
+      <div class="mt-4 flex justify-center lg:mt-6 lg:justify-start">
+        <app-inquiry-btn [productType]="productTypeForButton" />
+      </div>
+    </div>
+  </section>
+</article>

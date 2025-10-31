@@ -1,0 +1,46 @@
+<main class="flex min-h-screen w-full flex-col pt-14 lg:pt-18">
+  <div class="mx-auto w-full flex-grow">
+    <app-header (menuToggle)="toggleMenu()" />
+    <div class="overflow-y-auto">
+      <router-outlet />
+    </div>
+    <!-- 모바일 슬라이드 메뉴 -->
+    @if (menuOpen()) {
+      <div
+        @slideInOut
+        class="fixed top-0 z-50 max-h-[70vh] w-full overflow-auto bg-white px-6 py-3 shadow-lg lg:hidden"
+      >
+        <button
+          type="button"
+          (click)="toggleMenu()"
+          class="absolute top-4 right-5 cursor-pointer text-gray-800"
+          aria-label="Close menu"
+        >
+          <!-- 닫기 아이콘 -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        <nav class="flex flex-col items-start space-y-4 p-3 text-xl text-gray-800">
+          @for (item of navItems; track $index) {
+            <a [routerLink]="[item.path]" (click)="toggleMenu()" class="cursor-pointer">
+              {{ item.label }}
+            </a>
+          }
+        </nav>
+      </div>
+    }
+  </div>
+  <app-footer />
+</main>

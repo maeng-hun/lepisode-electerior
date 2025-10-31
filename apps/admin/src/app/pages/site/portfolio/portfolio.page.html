@@ -1,0 +1,43 @@
+<div class="flex w-full flex-col gap-5">
+  <div class="flex items-center justify-between">
+    <app-search-form [placeholder]="'제목, 작성자로 검색하세요.'" (searchItems)="onSearch($event)"></app-search-form>
+    <button
+      type="button"
+      routerLink="/site/portfolio/form"
+      class="flex cursor-pointer items-center gap-2 rounded-md bg-blue-600 px-7 py-3 font-semibold text-white transition-all hover:bg-blue-900"
+    >
+      <img src="assets/IcRoundPlus.svg" alt="등록 버튼 로고" class="size-5" />
+      등록
+    </button>
+  </div>
+
+  <!-- 포트폴리오 목록 -->
+  <div class="overflow-hidden rounded-lg border border-gray-300">
+    <div class="grid grid-cols-6 border-b border-gray-200 bg-gray-100 p-3 py-5 text-center font-semibold text-gray-700">
+      <div>ID</div>
+      <div>제목</div>
+      <div>작성자</div>
+      <div>조회수</div>
+      <div>이미지</div>
+      <div>등록일시</div>
+    </div>
+    <div class="flex flex-col">
+      @if (portfolios().length > 0) {
+        @for (p of portfolios(); track p.id; let i = $index) {
+          <div class="odd:bg-gray-50 even:bg-gray-100">
+            <app-portfolio-item
+              [item]="p"
+              [rowNumber]="portfolios().length - ((currentPage() - 1) * itemsPerPage() + i)"
+              (deleted)="onDeleted($event)"
+            />
+          </div>
+        }
+      } @else {
+        <div class="col-span-5 py-6 text-center text-gray-500">등록된 포트폴리오가 없습니다.</div>
+      }
+    </div>
+  </div>
+  <div class="flex justify-between">
+    <div><app-pagination /></div>
+  </div>
+</div>

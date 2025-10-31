@@ -1,0 +1,12 @@
+<section class="relative h-full w-full overflow-hidden">
+  <!-- 배경 이미지 -->
+  <img src="/assets/about/hero-bg.jpg" alt="히어로 섹션 배경" class="absolute inset-0 h-full w-full object-cover" />
+  <!-- 내용물 -->
+  <div class="relative z-10 container flex h-full flex-col items-start justify-center gap-4 py-20 lg:py-[100px]">
+    <p class="text-primary-500 lg:text-7 text-xl font-black tracking-[-0.8px] lg:tracking-[-1.12px]">{{ title() }}</p>
+    <p class="text-2xl font-extrabold tracking-[-0.96px] text-gray-800 lg:text-[40px] lg:font-bold">
+      {{ line1() }}<br class="lg:hidden" />
+      {{ line2() }}
+    </p>
+  </div>
+</section>

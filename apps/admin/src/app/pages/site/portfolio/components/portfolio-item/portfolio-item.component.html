@@ -1,0 +1,21 @@
+<!-- 포트폴리오 목록 -->
+<div class="grid grid-cols-6 border-b border-gray-200 px-2 py-4 text-center transition-all hover:bg-gray-200">
+  <div class="flex flex-col justify-center">
+    {{ rowNumber() }}
+  </div>
+  <div
+    (contextmenu)="openContextMenu($event)"
+    (click)="portfolioDetail($event)"
+    class="mx-auto line-clamp-1 max-w-30 cursor-pointer truncate overflow-hidden text-gray-900 hover:underline"
+  >
+    {{ item().title }}
+  </div>
+  <div>{{ item().admin || '-' }}</div>
+  <div>{{ item().views }}</div>
+  <div>
+    @for (image of item().images || []; track $index) {
+      <img [src]="image.url" />
+    }
+  </div>
+  <div>{{ item().createdAt | date: 'yyyy-MM-dd HH:mm' }}</div>
+</div>

@@ -1,0 +1,41 @@
+<header class="flex max-h-20 min-h-20 items-center justify-between border-b border-gray-300 px-6">
+  <div class="hidden flex-col gap-1 md:flex">
+    <!-- 부모 라벨만 -->
+    <h1 class="text-xl font-extrabold text-gray-700">
+      {{ menuState.getParentLabel() }}
+    </h1>
+
+    <!-- 부모 > 자식 -->
+    <p class="text-primary text-sm font-semibold">
+      {{ menuState.getFullLabel() }}
+    </p>
+  </div>
+
+  <button class="flex cursor-pointer md:hidden" (click)="menuState.toggleMobileMenu()">
+    <img src="/assets/hamburger.svg" alt="메뉴 버튼" />
+  </button>
+
+  <nav class="ml-auto flex gap-4 font-semibold text-gray-700 md:gap-10">
+    @if (userStore.isLoggedIn()) {
+      <button type="button" class="flex items-center gap-2">
+        <img class="size-5" src="https://api.iconify.design/lucide:user-circle.svg" alt="사용자 아이콘" />
+        {{ userStore.currentUser()?.nickname || 'Guest' }}
+      </button>
+
+      <button type="button" class="flex cursor-pointer items-center gap-2" (click)="onLogout()">
+        <img class="size-5" src="https://api.iconify.design/lucide:log-out.svg" alt="로그아웃 아이콘" />
+        로그아웃
+      </button>
+    } @else {
+      <button type="button" class="flex items-center gap-2">
+        <img class="size-5" src="https://api.iconify.design/lucide:user-circle.svg" alt="게스트 아이콘" />
+        Guest
+      </button>
+
+      <button type="button" class="flex cursor-pointer items-center gap-2" (click)="onLogin()">
+        <img class="size-5" src="https://api.iconify.design/lucide:log-in.svg" alt="로그인 아이콘" />
+        로그인
+      </button>
+    }
+  </nav>
+</header>

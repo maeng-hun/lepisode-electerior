@@ -1,0 +1,28 @@
+model User {
+    id        String   @id @default(cuid(2))
+    name      String
+    nickname  String
+    phoneNumber   String   @unique 
+    isVerified    Boolean @default(false)
+    
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt  
+    deletedAt DateTime?
+    
+    isAgreed Boolean @default(false)
+
+    favoritePlaces Place[] @relation("PlaceFavorites")
+    favoriteFeeds Feed[] @relation("FeedFavorites")
+
+    auths Auth[]
+
+    feeds   Feed[]
+    likes   Like[]
+    reviews Review[]
+
+    profileImageId String? @unique
+    profileImage   File?   @relation("UserProfileImage", fields: [profileImageId], references: [id])
+
+    placeMemos Memo[]
+    notifications Notification[]
+}

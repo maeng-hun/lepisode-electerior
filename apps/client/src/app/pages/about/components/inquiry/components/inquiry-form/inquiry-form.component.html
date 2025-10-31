@@ -1,0 +1,85 @@
+<form
+  [formGroup]="form"
+  class="mx-auto flex w-full max-w-[1360px] flex-col items-center gap-6 rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_0_16px_0_rgba(0,0,0,0.04)] lg:p-11"
+>
+  <h4 class="lg:text-7 text-2xl font-bold tracking-[-0.96px] text-gray-800 lg:tracking-[-1.12px]">신청자 정보</h4>
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 lg:flex-row lg:gap-[50px]">
+      <app-inquiry-input
+        class="lg:flex-1"
+        label="이름"
+        placeholder="이름을 입력해주세요."
+        formControlName="name"
+        [required]="true"
+      />
+
+      <app-inquiry-input
+        class="lg:flex-1"
+        label="연락처"
+        placeholder="예) 010-1234-5678"
+        type="tel"
+        formControlName="tel"
+        [maxlength]="13"
+        [required]="true"
+      />
+    </div>
+    <div class="flex flex-col gap-2 lg:flex-row lg:gap-[50px]">
+      <app-inquiry-input
+        class="lg:flex-1"
+        label="이메일"
+        placeholder="예) admin@naver.com"
+        type="email"
+        formControlName="email"
+        [required]="true"
+      />
+
+      <app-inquiry-type
+        class="lg:flex-1"
+        [selectedType]="selectedType()"
+        (selectedTypeChange)="selectedType.set($event)"
+      />
+    </div>
+
+    @if (showProductType()) {
+      <app-product-type
+        [selectedProductType]="selectedProductType()!"
+        (selectedProductTypeChange)="selectedProductType.set($event)"
+      />
+    }
+
+    <div class="flex flex-col gap-2 lg:flex-row lg:gap-[50px]">
+      <app-inquiry-input
+        class="lg:flex-1"
+        label="연락가능시간대"
+        placeholder="연락가능시간대를 입력해주세요."
+        formControlName="time"
+      />
+
+      <app-inquiry-input
+        class="lg:flex-1"
+        label="회사명"
+        placeholder="회사명을 입력해주세요."
+        formControlName="company"
+      />
+    </div>
+
+    <label for="editor" class="flex flex-col gap-2 text-black">
+      <div class="flex items-center gap-1">
+        <span class="font-semibold tracking-[-0.64px] text-gray-800">내용</span>
+        <span class="text-primary-500 relative top-[1px] text-sm tracking-[-0.6px]">*</span>
+      </div>
+      <app-editor id="editor" formControlName="content" format="html" />
+    </label>
+
+    <app-file-upload [label]="'로고'" />
+    <app-privacy-consent (consentChange)="onPrivacyConsentChange($event)" />
+  </div>
+  <button
+    type="button"
+    [disabled]="form.invalid || !isPrivacyConsentGiven()"
+    (click)="onSubmit()"
+    class="border-secondary-500 bg-secondary-500 w-[216px] cursor-pointer items-center justify-center rounded-full border px-8 py-4 text-xl font-semibold tracking-[-0.8px] text-white disabled:cursor-not-allowed disabled:border-none disabled:bg-gray-400"
+  >
+    문의하기
+  </button>
+</form>

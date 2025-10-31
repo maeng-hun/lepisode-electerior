@@ -1,0 +1,140 @@
+<app-hero-section title="RECRUIT" line1="기술과 공간을 잇는 여정," line2="일렉테리어와 함께하세요." />
+
+<section
+  class="container flex w-full flex-col items-center justify-end gap-10 bg-white px-4 py-10 lg:justify-end lg:gap-20 lg:py-20"
+>
+  <div class="flex flex-col items-center justify-center gap-4">
+    <p class="text-secondary-500 text-xl font-black lg:text-3xl">RECRUIT AREA</p>
+    <p class="w-full text-center text-3xl font-extrabold text-gray-800 lg:text-5xl">
+      일렉테리어의 채용 공고문은 언제나 열러있습니다.
+    </p>
+    <p class="mx-auto text-center text-xl leading-normal font-semibold break-keep text-gray-500 lg:text-2xl">
+      젊은회사, 젊은비전 힘차게 함께 도약할 인재를 육성합니다. <br />
+      정보화 시대 가장 앞선 IT기술을 일렉테리어와 함께 체험하십시오. <br />
+      자신있되 겸손한 인재, 글로벌 비전을 꿈꾸는 탁월한 인재와 함께합니다.
+    </p>
+  </div>
+</section>
+<!-- 카드3개 -->
+<section id="photo-3" class="bg-white px-4">
+  <div class="mx-auto w-full max-w-[1360px]">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
+      @for (card of cards(); track $index) {
+        <a [routerLink]="['/recruit', card.id]" class="lg:col-span-4">
+          <div class="relative aspect-[5/4] w-full overflow-hidden rounded-3xl bg-gray-300 lg:aspect-[4/3]">
+            <img [src]="card.image" class="absolute inset-0 size-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-b from-black/0 to-black/35"></div>
+            <article class="absolute inset-x-0 bottom-0 z-10 flex flex-col items-start gap-2 p-6">
+              <h1 class="text-2xl font-extrabold text-white lg:text-3xl">{{ card.title }}</h1>
+              <p class="text-base font-medium text-gray-200 lg:text-xl">{{ card.description }}</p>
+            </article>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+<section id="recruits" class="flex flex-col items-center justify-end gap-6 bg-white px-4 py-8 lg:py-20">
+  <div class="mx-auto w-full max-w-[1360px]">
+    <div id="careers-frame" class="flex w-full flex-col items-center justify-center gap-4">
+      <p class="text-primary text-xl font-black">CAREERS</p>
+      <p class="text-3xl font-extrabold">지금 합류하세요</p>
+    </div>
+    <div id="total-frame" class="mt-3 flex items-center gap-1">
+      <span class="font-pretendard text-[18px] font-semibold text-gray-800">전체</span>
+      <span class="font-pretendard text-primary text-[18px] font-semibold">{{ totlaRecruits }}</span>
+    </div>
+    <!-- 공고 목록 -->
+    @for (recruits of Recruits(); track $index) {
+      <article class="grid grid-cols-1 gap-y-[6px] py-3 lg:grid-cols-12 lg:grid-rows-2 lg:gap-x-8 lg:gap-y-0">
+        <div class="flex items-center gap-2 lg:col-span-6 lg:row-start-1">
+          @if ($index === 0 && recruits.pinned) {
+            <img src="assets/recruitment/Frame.svg" alt="핀 아이콘" class="size-5" />
+          }
+          <h3 class="font-pretendard text-[18px] font-semibold text-gray-800">
+            {{ recruits.title }}
+          </h3>
+        </div>
+        <p class="font-pretendard text-4 font-semibold text-gray-500 lg:col-span-6 lg:row-start-2">
+          {{ recruits.content }}
+        </p>
+        <time
+          class="font-pretendard text-4 font-semibold text-gray-500 lg:col-span-6 lg:col-start-7 lg:row-start-2 lg:self-start lg:justify-self-end"
+        >
+          {{ recruits.day | date: 'y. MM. dd' }}
+        </time>
+      </article>
+    }
+    <div class="flex w-full items-center justify-center gap-3 px-6 py-4">
+      <button
+        (click)="buttonRecruits()"
+        class="mt-2 flex h-20.5 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-gray-200 bg-gray-100 px-6 transition-opacity hover:opacity-80 lg:mx-auto lg:w-[20rem]"
+      >
+        <span class="text-5 leading-7.5 font-semibold text-gray-500"
+          >{{ isExpanded() ? '채용공고 접기' : '채용공고 더보기' }}
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
+<!-- 하단 -->
+<footer class="px-4 lg:py-20">
+  <div class="mx-auto grid w-full max-w-[1360px] grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-8">
+    <section class="order-1 w-full lg:col-span-6 lg:flex lg:flex-col lg:items-start">
+      <div
+        id="how-to-apply"
+        class="flex flex-col items-center justify-center gap-4 py-4 lg:items-start lg:justify-start"
+      >
+        <h1 class="text-primary text-5 font-black">HOW TO APPLY</h1>
+        <p class="text-center text-xl font-semibold text-gray-500 lg:text-left">일렉테리어의 문을 두드려주세요.</p>
+      </div>
+      <div class="flex justify-center lg:justify-start">
+        <button
+          class="border-primary text-primary text-5 flex h-15.5 w-50 cursor-pointer items-center justify-center gap-3 rounded-full border bg-white font-semibold hover:opacity-80"
+        >
+          바로 지원하기
+          <img src="/assets/recruitment/rightoutline.svg" class="h-6 w-6" alt="바로가기 화살표" />
+        </button>
+      </div>
+    </section>
+    <!-- 스와이프 -->
+    <div class="order-2 row-span-2 flex flex-col gap-4 lg:order-2 lg:col-span-6 lg:col-start-7">
+      <swiper-container
+        #swiper
+        class="w-full"
+        slides-per-view="1"
+        (swiperslidechange)="slideIndex.set(swiper.swiper.activeIndex)"
+      >
+        @for (img of slideImages; track $index) {
+          <swiper-slide>
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl lg:aspect-[777/604]">
+              <img [src]="img" class="size-full object-cover" />
+            </div>
+          </swiper-slide>
+        }
+      </swiper-container>
+      <div class="flex items-center justify-center gap-1 py-6">
+        @for (_ of slideImages.length | repeat; track $index) {
+          <div
+            class="size-3 rounded-full bg-neutral-400 transition-colors"
+            [class.bg-primary]="slideIndex() === $index"
+          ></div>
+        }
+      </div>
+    </div>
+    <section class="order-3 flex w-full flex-col items-start justify-center gap-6 py-4 lg:order-3 lg:col-span-6">
+      <div class="flex items-center gap-6">
+        <h6 class="text-xl font-semibold text-gray-800">지원 기간</h6>
+        <p class="text-4 font-medium text-gray-500">상시모집</p>
+      </div>
+      <div class="flex items-center gap-6">
+        <h6 class="text-xl font-semibold text-gray-800">지원 방법</h6>
+        <p class="text-4 font-medium text-gray-500">hello{{ '@' }}electerior.com</p>
+      </div>
+      <div class="flex items-center gap-6">
+        <h6 class="text-xl font-semibold text-gray-800">지원 양식</h6>
+        <p class="text-4 text-gray-500">이력서 1부, 자기소개서 (자유양식)</p>
+      </div>
+    </section>
+  </div>
+</footer>

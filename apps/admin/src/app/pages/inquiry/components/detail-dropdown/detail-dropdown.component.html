@@ -1,0 +1,10 @@
+<div class="flex w-16 flex-col items-center rounded-lg bg-white py-1 shadow-lg md:w-24 md:py-2">
+  @for (action of actions(); track action) {
+    <button
+      (click)="action.handler()"
+      class="w-full cursor-pointer rounded px-1 py-1 text-center text-xs hover:bg-blue-100 md:px-4 md:py-2 md:text-sm"
+    >
+      {{ action.label }}
+    </button>
+  }
+</div>

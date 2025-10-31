@@ -1,0 +1,12 @@
+@if (isVisible()) {
+  <div [@fadeUp] class="fixed right-12 bottom-20 z-100 flex flex-col items-end gap-4 lg:items-start">
+    <app-inquiry-btn />
+    <button
+      (click)="handleScrollToTop()"
+      class="border-secondary-500 bg-secondary-500 flex h-13 w-13 cursor-pointer items-center justify-center rounded-full shadow-lg transition duration-300 hover:bg-blue-200"
+      title="맨 위로"
+    >
+      <img src="/assets/partner/up-arrow.svg" alt="업버튼 아이콘" />
+    </button>
+  </div>
+}

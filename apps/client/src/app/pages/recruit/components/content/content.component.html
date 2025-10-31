@@ -1,0 +1,75 @@
+<section
+  class="flex flex-col items-start justify-end gap-13 bg-[url('/assets/recruitment/top_navi.jpg')] bg-cover bg-center bg-no-repeat px-4 py-20 lg:justify-end lg:px-70 lg:py-25"
+>
+  <div class="flex w-full flex-col items-start justify-center gap-4 lg:justify-end">
+    <p
+      class="lg:text-9 text-2xl font-extrabold tracking-tight text-gray-800 lg:leading-6 lg:font-extrabold lg:tracking-tight"
+    >
+      {{ copy.hero.title }}
+    </p>
+    <p class="text-4 lg:text-8 font-semibold text-gray-700 lg:font-medium">{{ copy.hero.subtitle }}</p>
+  </div>
+</section>
+<!-- 상세내용 섹션 -->
+<section
+  id="content"
+  class="flex w-full flex-col items-start gap-6 bg-white px-4 py-8 lg:w-full lg:justify-center lg:gap-10 lg:px-70 lg:py-10"
+>
+  <div class="flex w-full flex-col items-start gap-8 lg:gap-3">
+    @switch (id) {
+      @case ('solution') {
+        <h1 class="text-7 font-extrabold text-gray-800 lg:gap-3 lg:text-5xl">
+          고객 문제 해결에<br />
+          가치를 더할 <span class="text-blue-600">인재</span>를 찾습니다
+        </h1>
+      }
+      @case ('marketing') {
+        <h1 class="text-7 font-extrabold text-gray-800 lg:text-5xl">
+          고객 문제 해결에 가치를 더할
+          <span class="text-blue-600">인재</span>를 찾습니다
+        </h1>
+      }
+      @case ('office') {
+        <h1 class="text-7 font-extrabold text-gray-800 lg:text-5xl">
+          고객 문제 해결에 가치를 더할
+          <span class="text-blue-600">인재</span>를 찾습니다
+        </h1>
+      }
+    }
+  </div>
+  <!-- join : 배열 항목 개행 , whites.. : 개행 줄바꿈으로 렌더링  -->
+  @for (intro of copy.intros; track intro) {
+    <div class="space-y-4 text-[18px] font-medium whitespace-pre-line text-gray-800 lg:text-2xl">
+      <p [innerHTML]="intro"></p>
+    </div>
+  }
+
+  <!-- 담당업무~근무 환경 및 복지 -->
+  <div class="flex w-full flex-col items-start gap-3 space-y-2">
+    @for (section of copy.sections; track section.heading) {
+      <h6 class="text-4 lg:text-7 gap-3 font-semibold text-gray-800 lg:font-bold">{{ section.heading }}</h6>
+
+      <!-- 각 항목마다 li 한 개씩 -->
+      <ul class="text-4 lg:text-6 list-outside list-disc space-y-2 pl-5 leading-relaxed text-gray-700 lg:font-medium">
+        @for (line of section.items; track $index) {
+          <li class="self-stretch font-medium">{{ line }}</li>
+        }
+      </ul>
+    }
+    <!-- 지원방법 -->
+    <div class="flex w-full flex-col items-start gap-3 py-4">
+      <h6 class="lg:text-7 text-4 font-semibold text-gray-800 lg:font-bold">{{ copy.apply.heading }}</h6>
+      <ul class="list-outside list-disc space-y-2 pl-5 leading-relaxed">
+        <li class="text-4 lg:text-6 font-medium text-gray-700">
+          {{ copy.apply.intro }}
+        </li>
+      </ul>
+      <button
+        class="flex cursor-pointer items-center justify-center gap-[10px] rounded-lg bg-gray-100 px-4 py-1 hover:opacity-60"
+      >
+        <img src="/assets/recruitment/email.svg" alt="메일" />
+        <span>{{ copy.apply.email }} </span>
+      </button>
+    </div>
+  </div>
+</section>

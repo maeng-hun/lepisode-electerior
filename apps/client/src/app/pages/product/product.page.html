@@ -1,0 +1,50 @@
+<article class="flex w-full flex-col">
+  <app-hero-section
+    title="PRODUCT"
+    line1="공간의 품격을 높이는, 일렉테리어의"
+    line2="프리미엄 전기 솔루션을 만나보세요."
+  />
+
+  <section id="topSection" class="container flex flex-col gap-6 py-8 lg:gap-8 lg:py-20">
+    <p class="pretendard text-lg font-semibold text-gray-800 lg:text-2xl lg:font-bold">
+      전체<span class="text-primary"> {{ sortedProductItems().length }}</span>
+    </p>
+
+    <!-- 제품 카드 섹션 -->
+    <section>
+      <!-- 모바일: visibleItems -->
+      @if (sortedProductItems().length === 0) {
+        <p class="p-6 text-center text-gray-500 lg:p-12">등록된 제품이 없습니다.</p>
+      } @else {
+        <!-- 모바일: 무한스크롤 -->
+        <app-infinite-scroll
+          class="lg:hidden"
+          [items]="sortedProductItems()"
+          [increment]="3"
+          [itemTemplate]="productItemTemplate"
+        />
+
+        <!-- PC: pagedItems -->
+        <div class="hidden grid-cols-3 gap-8 lg:grid">
+          @for (item of pagedItems(); track $index) {
+            <app-product-item [item]="item" />
+          }
+        </div>
+      }
+    </section>
+
+    <!-- PC 전용 페이지네이션 -->
+    <app-pagination
+      class="hidden pt-12 lg:flex"
+      [currentPage]="currentPage()"
+      [totalPages]="totalPages()"
+      [itemsPerPage]="itemsPerPage()"
+      (pageChange)="onPageChange($event)"
+      (itemsPerPageChange)="onItemsPerPageChange($event)"
+    />
+  </section>
+
+  <ng-template #productItemTemplate let-item>
+    <app-product-item [item]="item" />
+  </ng-template>
+</article>

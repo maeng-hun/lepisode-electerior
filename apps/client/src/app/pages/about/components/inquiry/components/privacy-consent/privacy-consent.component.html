@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-2">
+  <div class="flex items-center gap-1">
+    <span class="font-semibold tracking-[-0.64px] text-gray-800"> 개인정보 수집 및 이용 동의 </span>
+    <span class="text-primary-500 relative top-[1px] text-sm tracking-[-0.6px]">*</span>
+  </div>
+
+  <div class="w-full rounded-xl border border-gray-200 p-4 focus-within:border-blue-500">
+    <div class="max-h-[200px] min-h-[120px] w-full space-y-6 overflow-y-auto tracking-[-0.64px] text-gray-700">
+      @for (item of privacyPolicy; track $index) {
+        <p class="tracking-[-0.64px] whitespace-pre-line text-gray-500">
+          {{ item }}
+        </p>
+      }
+    </div>
+  </div>
+
+  <!-- 동의 체크박스 -->
+  <label class="mt-1 flex items-center gap-2 select-none">
+    <input type="checkbox" [checked]="privacyConsent()" (change)="toggleConsent()" class="peer hidden" />
+
+    <div
+      class="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded border border-gray-300 transition-colors peer-checked:border-gray-500"
+    >
+      <dotlottie-player
+        #checkLottie
+        src="/assets/about/check-animation.json"
+        background="transparent"
+        speed="2.5"
+        style="width: 40px; height: 40px"
+      ></dotlottie-player>
+    </div>
+
+    <span class="tracking-[-0.64px] text-gray-800">
+      <span class="font-semibold">개인정보 수집 및 이용 방침</span>에 동의합니다.
+    </span>
+  </label>
+</div>

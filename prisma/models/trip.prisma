@@ -1,0 +1,11 @@
+model Trip {
+    id      String       @id @default(cuid())
+    title   String
+    nights    Int      
+    days      Int
+    startDate DateTime 
+    endDate   DateTime
+
+    places    Place[]   @relation("TripPlaces")
+    Feeds     Feed[]  
+}
